@@ -1,0 +1,10 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+build: [
+  ["ocaml" "setup.ml" "-configure" "--prefix" "%{prefix}%/ios-sysroot"
+                                   "--override" "native_dynlink" "false"]
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" "ocaml" "setup.ml" "-build"]
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" "ocaml" "setup.ml" "-install"]
+]
+remove: [["ocamlfind" "-toolchain" "ios" "remove" "re"]]
+depends: ["ocaml-ios" "ocamlfind"]
