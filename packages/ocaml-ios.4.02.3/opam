@@ -1,0 +1,5 @@
+opam-version: "1.2"
+maintainer: "whitequark@whitequark.org"
+depends: [
+  ( "ocaml-ios32" {= "4.02.3"} | "ocaml-ios64" {= "4.02.3"} )
+]

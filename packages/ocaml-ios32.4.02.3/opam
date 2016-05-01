@@ -1,0 +1,25 @@
+opam-version: "1.2"
+maintainer: "whitequark@whitequark.org"
+patches: [
+  "patches/ar-fix.patch"
+  "patches/ocamldoc.patch"
+]
+substs: [
+  "config/Makefile"
+  "ios.conf"
+]
+build: [
+  [make "world" "opt" "install"]
+  ["./install.sh" "%{prefix}%"]
+]
+remove: [
+  ["./remove.sh" "%{prefix}%"]
+]
+depends: [
+  "ocamlfind" {>= "1.5.4"}
+  "conf-ios"
+]
+conflicts: [
+  "ocaml-ios64"
+]
+available: [ ocaml-version = "4.02.3" & (conf-ios:arch = "arm" | conf-ios:arch = "i386") ]
