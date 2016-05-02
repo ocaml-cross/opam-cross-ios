@@ -1,0 +1,2 @@
+cflags:    "-I%{prefix}%/ios-deps/expat/include"
+ldflags:   "-L%{prefix}%/ios-deps/expat/lib"

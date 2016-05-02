@@ -1,0 +1,11 @@
+--- a/xmlwf/readfilemap.c     2016-05-02 11:55:34.000000000 +0400
++++ b/xmlwf/readfilemap.c 2016-05-02 11:55:51.000000000 +0400
+@@ -16,7 +16,7 @@
+ #endif
+ #endif
+ 
+-#ifdef __BEOS__
++#if defined(__BEOS__) || defined(__APPLE__)
+ #include <unistd.h>
+ #endif
+ 

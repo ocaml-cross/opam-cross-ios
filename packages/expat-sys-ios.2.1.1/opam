@@ -1,0 +1,17 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+patches: ["patches/unistd.patch"]
+substs: ["expat-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triple}%"
+                 "--prefix=%{prefix}%/ios-deps/expat"
+                 "--disable-shared"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"]
+  ["env" "make" "-j" jobs]
+]
+install: [
+  ["env" "make" "install"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/expat"]]
+depends: ["conf-ios"]
