@@ -68,6 +68,25 @@ Make an object file out of it and link it with your iOS project (you'll need to 
 
 With opam-ios, cross-compilation is easy!
 
+Managing deployment targets
+---------------------------
+
+Generally, any native iOS library would have to be compiled four times: for 32-bit and 64-bit device and simulator. OPAM offers no help here; due to the way OPAM packages currently work, the only realistic option is to create four switches, one switch per target, and build everything four times. To assist with this, a script called [ioscaml.sh](/ioscaml.sh) is distributed in this repository.
+
+The script is supposed to be loaded into a running shell by sourcing it and it defines several functions:
+
+  * `ioscaml_create_switches` creates four OPAM switches with predefined names;
+  * `ioscaml_foreach cmd...` runs `cmd...` in every OPAM switch;
+  * `SDK=9.3 ioscaml_configure` installs `conf-ios` with appropriate parameters and specified SDK version in every switch;
+  * `ioscaml_ocamlbuild` runs `ocamlbuild` once with every OPAM switch selected and places the build products in `_build_arm` for 32-bit iOS, `_build_arm64` for 64-bit iOS, `_build_i386` for 32-bit simulator, and `_build_amd64` for 64-bit simulator.
+
+A typical workflow would be as follows:
+
+  * `ioscaml_create_switches` to create the switches and build the host compilers;
+  * `SDK=9.3 ioscaml_foreach ioscaml_configure` to configure the cross-compiler in the switches;
+  * `ioscaml_foreach opam install re-ios ...` to install the dependencies of your library;
+  * `ioscaml_foreach ioscaml_ocamlbuild libiosthing.o` to build your library.
+
 Porting packages
 ----------------
 
