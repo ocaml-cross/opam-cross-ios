@@ -1,0 +1,18 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+substs: ["libjpeg-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triple}%"
+                 "--prefix=%{prefix}%/ios-deps/libjpeg"
+                 "--disable-shared"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"]
+  ["make" "libjpeg.la" "-j" jobs]
+]
+install: [
+  ["make" "install-libLTLIBRARIES"
+          "install-includeHEADERS"
+          "install-data-local"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/libjpeg"]]
+depends: ["conf-ios"]

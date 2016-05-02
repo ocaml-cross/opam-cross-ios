@@ -1,0 +1,2 @@
+cflags:    "-I%{prefix}%/ios-deps/libjpeg/include"
+ldflags:   "-L%{prefix}%/ios-deps/libjpeg/lib"
