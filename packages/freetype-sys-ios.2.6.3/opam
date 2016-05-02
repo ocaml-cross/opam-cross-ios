@@ -1,0 +1,27 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+substs: ["freetype-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triple}%"
+                 "--prefix=%{prefix}%/ios-deps/freetype"
+                 "--disable-shared"
+                 "--with-harfbuzz=no"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"
+                 "ZLIB_CFLAGS="
+                 "ZLIB_LIBS=-lz"
+                 "BZIP2_CFLAGS=%{bzip2-sys-ios:cflags}%"
+                 "BZIP2_LIBS=%{bzip2-sys-ios:ldflags}%"
+                 "LIBPNG_CFLAGS=%{libpng-sys-ios:cflags}%"
+                 "LIBPNG_LIBS=%{libpng-sys-ios:ldflags}%"]
+  ["make" "-j" jobs]
+]
+install: [
+  ["make" "install"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/freetype"]]
+depends: [
+  "conf-ios"
+  "libpng-sys-ios"
+  "bzip2-sys-ios"
+]

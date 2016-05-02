@@ -1,0 +1,2 @@
+cflags:    "-I%{prefix}%/ios-deps/freetype/include/freetype2"
+ldflags:   "-L%{prefix}%/ios-deps/freetype/lib"
