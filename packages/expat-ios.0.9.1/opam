@@ -1,0 +1,18 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+patches: ["patches/Makefile.patch" "patches/no-shlib.patch"]
+build: [
+  ["env" "OCAMLFIND_TOOLCHAIN=ios"
+   make "EXPAT_INCDIR=%{prefix}%/ios-deps/expat/include"
+        "EXPAT_LIBDIR=%{prefix}%/ios-deps/expat/lib"
+        "all" "allopt"]
+]
+install: [
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" make "install"]
+]
+remove: [["ocamlfind" "-toolchain" "ios" "remove" "expat"]]
+depends: [
+  "expat-sys-ios"
+  "ocaml-ios"
+  "ocamlfind" {build}
+]
