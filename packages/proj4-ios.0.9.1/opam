@@ -1,0 +1,21 @@
+opam-version: "1.2"
+maintainer: "whitequark@whitequark.org"
+patches: ["patches/no-shlib.patch"]
+build: [
+  ["ocaml" "setup.ml" "-configure"
+           "--prefix" "%{prefix}%/ios-sysroot"
+           "--override" "ocamlbuildflags" "-cflag -ccopt -cflag '%{proj4-sys-ios:cflags}%' -lflag -cclib -lflag '%{proj4-sys-ios:ldflags}%'"
+           "--override" "native_dynlink" "false"]
+  ["env" "OCAMLFIND_TOOLCHAIN=ios"
+         "OCAMLMKLIBPARAM=%{proj4-sys-ios:ldflags}%"
+   "ocaml" "setup.ml" "-build"]
+  ["env" "OCAMLFIND_TOOLCHAIN=ios"
+   "ocaml" "setup.ml" "-install"]
+]
+remove: [["ocamlfind" "-toolchain" "ios" "remove" "proj4"]]
+depends: [
+  "proj4-sys-ios"
+  "ocaml-ios"
+  "ocamlfind" {build}
+  "ocamlbuild" {build}
+]

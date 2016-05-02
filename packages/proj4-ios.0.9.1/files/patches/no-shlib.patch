@@ -1,0 +1,11 @@
+--- a/setup.ml        2016-05-02 12:22:15.000000000 +0400
++++ b/setup.ml    2016-05-02 12:22:45.000000000 +0400
+@@ -2060,8 +2060,6 @@
+       if bs.bs_c_sources <> [] then
+         begin
+           ["lib"^cs.cs_name^"_stubs"^ext_lib]
+-          ::
+-          ["dll"^cs.cs_name^"_stubs"^ext_dll]
+           ::
+           acc_nopath
+         end
