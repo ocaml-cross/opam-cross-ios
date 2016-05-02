@@ -1,0 +1,8 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+build: [
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" make]
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" make "install"]
+]
+remove: [["ocamlfind" "-toolchain" "ios" "remove" "easy-format"]]
+depends: ["ocaml-ios" "ocamlfind"]
