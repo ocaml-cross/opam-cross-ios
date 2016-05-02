@@ -1,0 +1,17 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+substs: ["proj4-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triple}%"
+                 "--prefix=%{prefix}%/ios-deps/proj4"
+                 "--disable-shared"
+                 "--without-jni"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"]
+  ["make" "-C" "src" "libproj.la" "-j" jobs]
+]
+install: [
+  ["make" "-C" "src" "install-libLTLIBRARIES" "install-includeHEADERS"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/proj4"]]
+depends: ["conf-ios"]
