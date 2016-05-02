@@ -1,0 +1,14 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+substs: ["bzip2-sys-ios.config"]
+build: [
+  ["make" "CFLAGS=%{conf-ios:cflags}%"
+          "LDFLAGS=%{conf-ios:ldflags}%"
+          "libbz2.a" "bzip2" "bzip2recover"]
+]
+install: [
+  ["make" "PREFIX=%{prefix}%/ios-deps/bzip2"
+          "install"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/bzip2"]]
+depends: ["conf-ios"]

@@ -1,0 +1,2 @@
+cflags:    "-I%{prefix}%/ios-deps/bzip2/include"
+ldflags:   "-L%{prefix}%/ios-deps/bzip2/lib"
