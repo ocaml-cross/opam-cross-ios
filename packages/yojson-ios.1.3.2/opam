@@ -1,0 +1,15 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+patches: ["patches/natdynlink-false.patch"]
+build: [
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" make]
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" make "install"]
+]
+remove: [["ocamlfind" "-toolchain" "ios" "remove" "yojson"]]
+depends: [
+  "ocaml-ios"
+  "ocamlfind"
+  "cppo"
+  "easy-format-ios"
+  "biniou-ios" {>= "1.0.6"}
+]
