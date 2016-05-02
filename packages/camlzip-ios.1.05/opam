@@ -1,0 +1,23 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+patches: [
+  "patches/build-with-trunk.patch"
+  "patches/fix-install.patch"
+  "patches/cross-compilation.patch"
+]
+build: [
+  ["env" "OCAMLFIND_TOOLCHAIN=ios"
+   make "ZLIB_INCLUDE=" "ZLIB_LIBDIR="
+        "all" "allopt"]
+]
+install: [
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" make "install-findlib"]
+]
+remove: [
+  ["ocamlfind" "-toolchain" "ios" "remove" "camlzip"]
+  ["ocamlfind" "-toolchain" "ios" "remove" "zip"]
+]
+depends: [
+  "ocaml-ios"
+  "ocamlfind" {build}
+]
