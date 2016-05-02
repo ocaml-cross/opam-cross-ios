@@ -1,0 +1,18 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+substs: ["libpng-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triple}%"
+                 "--prefix=%{prefix}%/ios-deps/libpng"
+                 "--disable-shared"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"]
+  ["make" "libpng16.la" "-j" jobs]
+]
+install: [
+  ["make" "install-libLTLIBRARIES"
+          "install-pkgincludeHEADERS"
+          "install-nodist_pkgincludeHEADERS"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/libpng"]]
+depends: ["conf-ios"]
