@@ -77,13 +77,13 @@ The script is supposed to be loaded into a running shell by sourcing it and it d
 
   * `ioscaml_create_switches` creates four OPAM switches with predefined names;
   * `ioscaml_foreach cmd...` runs `cmd...` in every OPAM switch;
-  * `SDK=9.3 ioscaml_configure` installs `conf-ios` with appropriate parameters and specified SDK version in every switch;
+  * `SDK=9.3 VER=8.0 ioscaml_configure` installs `conf-ios` with appropriate parameters and specified SDK version as well as `-miphoneos-version-min` in every switch;
   * `ioscaml_ocamlbuild` runs `ocamlbuild` once with every OPAM switch selected and places the build products in `_build_arm` for 32-bit iOS, `_build_arm64` for 64-bit iOS, `_build_i386` for 32-bit simulator, and `_build_amd64` for 64-bit simulator.
 
 A typical workflow would be as follows:
 
   * `ioscaml_create_switches` to create the switches and build the host compilers;
-  * `SDK=9.3 ioscaml_foreach ioscaml_configure` to configure the cross-compiler in the switches;
+  * `SDK=9.3 VER=8.0 ioscaml_foreach ioscaml_configure` to configure the cross-compiler in the switches;
   * `ioscaml_foreach opam install re-ios ...` to install the dependencies of your library;
   * `ioscaml_foreach ioscaml_ocamlbuild libiosthing.o` to build your library.
 
