@@ -1,0 +1,11 @@
+opam-version: "1.2"
+maintainer: "whitequark@whitequark.org"
+patches: ["patches/no-shlib.patch" "patches/cross-compilation.patch"]
+build-env: [OCAMLFIND_TOOLCHAIN="ios"]
+build: [[make "REAL_OCAMLFIND=ocamlfind" "STATIC=1"]]
+install: [[make "REAL_OCAMLFIND=ocamlfind" "STATIC=1" "install"]]
+remove: [["ocamlfind" "-toolchain" "ios" "remove" "camlgpc"]]
+depends: [
+  "ocaml-ios"
+  "ocamlfind" {build}
+]
