@@ -19,8 +19,10 @@ ioscaml_foreach() {
 }
 
 ioscaml_configure() {
-  if [ -z "${SDK}" ]; then
-    echo "Usage: SDK=9.3 ioscaml_configure"
+  if [ -z "${SDK}" -o -z "${VER}" ]; then
+    echo "Usage: SDK=9.3 VER=8.0 ioscaml_configure" >&2
+    echo "  SDK specifies the installed iOS SDK version." >&2
+    echo "  VER specifies the -miphoneos-version-min value." >&2
     return 1
   fi
   case $(opam switch show) in
