@@ -1,0 +1,20 @@
+opam-version: "1.2"
+maintainer: "whitequark@whitequark.org"
+patches: ["patches/cross-compilation.patch" "patches/no-shlib.patch"]
+substs: ["libffi.config"]
+build: [
+  ["rm" "-rf" "src/libffi-abigen"]
+  [make "OCAMLFIND=ocamlfind -toolchain ios" "HOSTOCAMLFIND=ocamlfind"]
+]
+install: [
+  [make "OCAMLFIND=ocamlfind -toolchain ios" "HOSTOCAMLFIND=ocamlfind"
+        "install"]
+]
+remove: [
+  ["ocamlfind" "-toolchain" "ios" "remove" "ctypes"]
+]
+depends: [
+  "ocaml-ios"
+  "libffi-sys-ios"
+  "ocamlfind" {build}
+]
