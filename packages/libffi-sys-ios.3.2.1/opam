@@ -1,0 +1,16 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+substs: ["libffi-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triplereal}%"
+                 "--prefix=%{prefix}%/ios-deps/libffi"
+                 "--disable-shared"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"]
+  ["make" "-j" jobs]
+]
+install: [
+  ["make" "install"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/libffi"]]
+depends: ["conf-ios"]
