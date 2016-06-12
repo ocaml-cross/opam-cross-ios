@@ -1,0 +1,18 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+build: [
+  ["env" "OCAMLFIND_TOOLCHAIN=ios"
+   "ocaml" "setup.ml" "-configure" "--prefix" "%{prefix}%/ios-sysroot"
+                                   "--override" "native_dynlink" "false"
+                                   "--disable-examples"]
+  ["ocamlbuild" "-use-ocamlfind" "-just-plugin"]
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" "ocaml" "setup.ml" "-build"]
+  ["env" "OCAMLFIND_TOOLCHAIN=ios" "ocaml" "setup.ml" "-install"]
+]
+remove: [["ocamlfind" "-toolchain" "ios" "remove" "gdal"]]
+depends: [
+  "ocaml-ios"
+  "ctypes-ios"
+  "gdal-sys-ios"
+  "ocamlfind" {build}
+]
