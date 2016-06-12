@@ -1,0 +1,27 @@
+opam-version: "1.2"
+maintainer: "Daniel Bünzli <daniel.buenzl i@erratique.ch>"
+homepage: "http://erratique.ch/software/tgls"
+authors: ["Daniel Bünzli <daniel.buenzl i@erratique.ch>"]
+doc: "http://erratique.ch/software/tgls/doc/"
+dev-repo: "http://erratique.ch/repos/tgls.git"
+bug-reports: "https://github.com/dbuenzli/tsdl/issues"
+tags: [ "bindings" "opengl" "opengl-es" "graphics" "org:erratique" ]
+license: "BSD3"
+patches: ["patches/cross-compiling.patch"]
+build: [
+  [ "env" "TGLS_UNAME_S=Darwin"
+    "ocaml" "pkg/git.ml" ]
+  [ "env" "TGLS_UNAME_S=Darwin"
+    "ocamlbuild" "-just-plugin" ]
+  [ "env" "TGLS_UNAME_S=Darwin" "OCAMLFIND_TOOLCHAIN=ios"
+    "ocaml" "pkg/build.ml" "native=true" "native-dynlink=false" ]
+]
+install: [["opam-installer" "--prefix=%{prefix}%/ios-sysroot" "tgls.install"]]
+remove: [["ocamlfind" "-toolchain" "ios" "remove" "tgls"]]
+depends: [
+  "ocaml-ios"
+  "ctypes-ios" {>= "0.4.0"}
+  "ocamlfind"
+  "ocamlbuild" {build}
+  "xmlm"
+]
