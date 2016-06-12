@@ -1,0 +1,2 @@
+cflags:    "-I%{prefix}%/ios-deps/gdal/include"
+ldflags:   "-L%{prefix}%/ios-deps/gdal/lib"

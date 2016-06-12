@@ -1,0 +1,31 @@
+opam-version: "1"
+maintainer: "whitequark@whitequark.org"
+substs: ["gdal-sys-ios.config"]
+patches: ["patches/fucking-autoconf.diff"]
+build: [
+  ["./configure" "--host=%{conf-ios:triple}%"
+                 "--prefix=%{prefix}%/ios-deps/gdal"
+                 "--disable-shared"
+                 "--without-ld-shared"
+                 "--without-libtool"
+                 "--without-sse"
+                 "--without-avx"
+                 "--without-gif"     # error: implicit declaration of `close`
+                 "--without-sqlite3" # confused with the OS X one
+                 "--without-xml2"    # confused with the OS X one
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"
+                 "CC=" "CXX="]
+  ["make" "-j" jobs "-C" "port"]
+  ["make" "-j" jobs "-C" "alg"]
+  ["make" "-j" jobs "-C" "frmts"]
+  ["make" "-j" jobs "-C" "gcore"]
+  ["make" "-j" jobs "-C" "ogr"]
+  ["make" "-j" jobs "-C" "apps" "appslib"]
+  ["make" "-j" jobs "lib-target"]
+]
+install: [
+  ["make" "install-lib"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/gdal"]]
+depends: ["conf-ios"]
