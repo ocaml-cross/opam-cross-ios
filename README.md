@@ -26,28 +26,29 @@ Otherwise, use a regular compiler; its version must match the version of the cro
 
 Configure the compiler for 32-bit ARM:
 
-    ARCH=arm SUBARCH=armv7s PLATFORM=iPhoneOS SDK=9.3 \
+    ARCH=arm SUBARCH=armv7s PLATFORM=iPhoneOS SDK=9.3 VER=8.0 \
       opam install conf-ios
 
 ... for 64-bit ARM
 
-    ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneOS SDK=9.3 \
+    ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneOS SDK=9.3 VER=8.0 \
       opam install conf-ios
 
 ... for 32-bit x86:
 
-    ARCH=i386 SUBARCH=i386 PLATFORM=iPhoneSimulator SDK=9.3 \
+    ARCH=i386 SUBARCH=i386 PLATFORM=iPhoneSimulator SDK=9.3 VER=8.0 \
       opam install conf-ios
 
 ... for 64-bit x86:
 
-    ARCH=amd64 SUBARCH=x86_64 PLATFORM=iPhoneSimulator SDK=9.3 \
+    ARCH=amd64 SUBARCH=x86_64 PLATFORM=iPhoneSimulator SDK=9.3 VER=8.0 \
       opam install conf-ios
 
 Some options can be further tweaked:
 
   * `SUBARCH` (when `ARCH=arm`) specifies the ARM architecture version, one of `armv6`, `armv7`, and `armv7s`;
-  * `SDK` specifies the SDK being used as well as the minimum iOS version on which the compiled code will run.
+  * `SDK` specifies the SDK being used as well as the minimum iOS version on which the compiled code will run;
+  * `VER` specifies the value of the `-miphoneos-version-min` compiler switch.
 
 The options above (`ARCH`, `SUBARCH`, `PLATFORM`, `SDK`) are recorded inside the `conf-ios` package, so make sure to reinstall that package if you wish to switch to a different toolchain. Otherwise, it is not necessary to supply them while upgrading the `ocaml-ios*` packages.
 
