@@ -27,7 +27,7 @@ ioscaml_configure() {
   fi
   case $(opam switch show) in
   ${IOSCAMLVER}+ios+arm32)
-    ARCH=arm SUBARCH=armv7s PLATFORM=iPhoneOS \
+    ARCH=arm SUBARCH=armv7 PLATFORM=iPhoneOS \
       opam reinstall -y conf-ios
     ;;
   ${IOSCAMLVER}+ios+arm64)
