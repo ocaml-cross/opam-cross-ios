@@ -1,0 +1,11 @@
+--- Makefile.rules	Fri Dec 16 11:35:40 2016
++++ Makefile.rules	Mon Dec 19 17:43:37 2016
+@@ -64,7 +64,7 @@
+ ifeq ($(BEST),native)
+ LIB_TARGETS += $(BUILDDIR)/$(PROJECT).cmxa
+ endif
+-ifneq ($(wildcard $(shell ocamlc -where)/dynlink.cmxa),)
++ifneq ($(wildcard $(shell $(OCAMLFIND) ocamlc -where)/dynlink.cmxa),)
+ LIB_TARGETS += $(BUILDDIR)/$(PROJECT).cmxs
+ endif
+ LIB_TARGET_EXTRAS = $(if $(STUB_LIB),$(BUILDDIR)/lib$(PROJECT)_stubs.a) \
