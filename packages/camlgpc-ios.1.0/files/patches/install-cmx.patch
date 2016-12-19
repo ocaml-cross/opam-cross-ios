@@ -3,10 +3,11 @@
 @@ -6,7 +6,8 @@
  
  LIBINSTALL_FILES = camlgpc.a camlgpc.cma camlgpc.cmxa libcamlgpc_stubs.a \
- dllcamlgpc_stubs.* \
+-dllcamlgpc_stubs.* \
 -$(foreach x,$(MODS),$x.mli) $(foreach x,$(MODS),$x.cmi)
 +$(foreach x,$(MODS),$x.mli) $(foreach x,$(MODS),$x.cmi) \
-+$(foreach x,$(MODS),$x.cmx)
- 
++$(foreach x,$(MODS),$x.cmx) \
++-optional dllcamlgpc_stubs.*
+
  OCAMLNCFLAGS = -g
  OCAMLBCFLAGS = -g
