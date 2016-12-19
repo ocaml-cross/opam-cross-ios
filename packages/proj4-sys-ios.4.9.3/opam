@@ -2,6 +2,7 @@ opam-version: "1"
 maintainer: "whitequark@whitequark.org"
 substs: ["proj4-sys-ios.config"]
 build: [
+  ["./autogen.sh"]
   ["./configure" "--host=%{conf-ios:triple}%"
                  "--prefix=%{prefix}%/ios-deps/proj4"
                  "--disable-shared"
