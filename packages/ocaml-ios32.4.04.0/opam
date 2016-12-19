@@ -15,6 +15,9 @@ depends: [
   "ocamlfind" {>= "1.5.4"}
   "conf-ios"
 ]
+depopts: [
+  "conf-flambda-ios"
+]
 conflicts: [
   "ocaml-ios64"
 ]

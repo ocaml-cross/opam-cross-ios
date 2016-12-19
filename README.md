@@ -57,6 +57,12 @@ Some options can be further tweaked:
 
 The options above (`ARCH`, `SUBARCH`, `PLATFORM`, `SDK`) are recorded inside the `conf-ios` package, so make sure to reinstall that package if you wish to switch to a different toolchain. Otherwise, it is not necessary to supply them while upgrading the `ocaml-ios*` packages.
 
+If desired, request the compiler to be built with [flambda][] optimizers:
+
+    opam install conf-flambda-ios
+
+[flambda]: https://caml.inria.fr/pub/docs/manual-ocaml/flambda.html
+
 Install the compiler and some packages:
 
     opam install ocaml-ios re-ios
