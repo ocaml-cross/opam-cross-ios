@@ -24,6 +24,11 @@ Otherwise, use a regular compiler; its version must match the version of the cro
     opam switch 4.04.0
     eval `opam config env`
 
+Pin some prerequisite packages that don't yet have fixes merged upstream:
+
+    opam pin add ocamlbuild https://github.com/ocaml/ocamlbuild.git
+    opam pin add topkg https://github.com/whitequark/topkg.git#ios
+
 Configure the compiler for 32-bit ARM:
 
     ARCH=arm SUBARCH=armv7s PLATFORM=iPhoneOS SDK=9.3 VER=8.0 \
@@ -85,6 +90,7 @@ A typical workflow would be as follows:
 
   * `ioscaml_create_switches` to create the switches and build the host compilers;
   * `SDK=9.3 VER=8.0 ioscaml_foreach ioscaml_configure` to configure the cross-compiler in the switches;
+  * `ioscaml_foreach opam pin ...` to pin the necessary dependencies;
   * `ioscaml_foreach opam install re-ios ...` to install the dependencies of your library;
   * `ioscaml_foreach ioscaml_ocamlbuild libiosthing.o` to build your library.
 
@@ -102,9 +108,12 @@ Note that iOS does not support dynamic linking, and so package build systems sho
 For projects using OASIS, the following steps will work:
 
     build: [
-      ["ocaml" "setup.ml" "-configure" "--prefix" "%{prefix}%/ios-sysroot"
+      ["env" "OCAMLFIND_TOOLCHAIN=ios"
+       "ocaml" "setup.ml" "-configure" "--prefix" "%{prefix}%/ios-sysroot"
                                        "--override" "native_dynlink" "false"]
       ["env" "OCAMLFIND_TOOLCHAIN=ios" "ocaml" "setup.ml" "-build"]
+    ]
+    install: [
       ["env" "OCAMLFIND_TOOLCHAIN=ios" "ocaml" "setup.ml" "-install"]
     ]
     remove: [["ocamlfind" "-toolchain" "ios" "remove" "pkg"]]
@@ -112,6 +121,7 @@ For projects using OASIS, the following steps will work:
 
 For projects installing the files via OPAM's `.install` files (e.g. [topkg](https://github.com/dbuenzli/topkg)), the following steps will work:
 
+    build: [["ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" "--toolchain" "ios" ]]
     install: [["opam-installer" "--prefix=%{prefix}%/ios-sysroot" "pkg.install"]]
     remove: [["ocamlfind" "-toolchain" "ios" "remove" "pkg"]]
     depends: ["ocaml-ios" ...]
