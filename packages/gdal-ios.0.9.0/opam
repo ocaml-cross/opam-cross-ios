@@ -15,4 +15,5 @@ depends: [
   "ctypes-ios"
   "gdal-sys-ios"
   "ocamlfind" {build}
+  "ocamlbuild" {build}
 ]
