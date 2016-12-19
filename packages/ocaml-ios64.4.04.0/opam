@@ -1,9 +1,5 @@
 opam-version: "1.2"
 maintainer: "whitequark@whitequark.org"
-patches: [
-  "patches/ar-fix.patch"
-  "patches/ocamldoc.patch"
-]
 substs: [
   "config/Makefile"
   "ios.conf"
@@ -22,4 +18,4 @@ depends: [
 conflicts: [
   "ocaml-ios32"
 ]
-available: [ ocaml-version = "4.02.3" & (conf-ios:arch = "arm64" | conf-ios:arch = "amd64") ]
+available: [ ocaml-version = "4.04.0" & (conf-ios:arch = "arm64" | conf-ios:arch = "amd64") ]

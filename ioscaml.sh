@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-IOSCAMLVER=4.02.3
+IOSCAMLVER=4.04.0
 
 ioscaml_create_switches() {
   opam switch -y ${IOSCAMLVER}+ios+arm32 --alias-of ${IOSCAMLVER}+32bit

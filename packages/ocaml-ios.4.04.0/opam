@@ -1,5 +1,5 @@
 opam-version: "1.2"
 maintainer: "whitequark@whitequark.org"
 depends: [
-  ( "ocaml-ios32" {= "4.02.3"} | "ocaml-ios64" {= "4.02.3"} )
+  ( "ocaml-ios32" {= "4.04.0"} | "ocaml-ios64" {= "4.04.0"} )
 ]
