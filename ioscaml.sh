@@ -13,7 +13,7 @@ ioscaml_foreach() {
   for i in ${IOSCAMLVER}+ios+arm32 ${IOSCAMLVER}+ios+arm64 \
            ${IOSCAMLVER}+ios+x86   ${IOSCAMLVER}+ios+amd64; do
     opam switch -y --no-warning $i
-    eval $(opam config env)
+    eval $(opam config env --switch=$i)
     if ! OPAMYES=1 $*; then return 1; fi
   done
 }
