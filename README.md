@@ -74,7 +74,7 @@ Write some code using them:
       let result = Re.exec regexp "Hello, world!" in
       Format.printf "match: %s\n" (Re.get result 1)
 
-Make an object file out of it and link it with your iOS project (you'll need to call `caml_startup(argv)` to run OCaml code; see [this article](http://www.mega-nerd.com/erikd/Blog/CodeHacking/Ocaml/calling_ocaml.html)):
+Make an object file out of it, link `libasmrun.a` to your final executable, and link it with your iOS project (you'll need to call `caml_startup(argv)` to run OCaml code; see [this article](http://www.mega-nerd.com/erikd/Blog/CodeHacking/Ocaml/calling_ocaml.html)):
 
     ocamlfind -toolchain ios ocamlopt -package re.pcre -linkpkg -output-complete-obj test_pcre.ml -o test_pcre.o
 
