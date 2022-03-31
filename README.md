@@ -5,14 +5,14 @@ This repository contains an up-to-date iOS toolchain featuring OCaml 4.04.0, as 
 
 The supported build systems is OS X 10.9 and later. The supported target systems are 32-bit and 64-bit x86 iPhone simulator and ARM iPhone.
 
-If you need support for other platforms or versions, please [open an issue](https://github.com/whitequark/opam-cross-ios/issues).
+If you need support for other platforms or versions, please [open an issue](https://github.com/ocaml-cross/opam-cross-ios/issues).
 
 Installation
 ------------
 
 Add this repository to OPAM:
 
-    opam repository add ios git://github.com/whitequark/opam-cross-ios
+    opam repository add ios https://github.com/ocaml-cross/opam-cross-ios.git
 
 Switch to 32-bit compiler when compiling for 32-bit targets:
 
@@ -23,11 +23,6 @@ Otherwise, use a regular compiler; its version must match the version of the cro
 
     opam switch 4.04.0
     eval `opam config env`
-
-Pin some prerequisite packages that don't yet have fixes merged upstream:
-
-    opam pin add ocamlbuild https://github.com/ocaml/ocamlbuild.git
-    opam pin add topkg https://github.com/whitequark/topkg.git#ios
 
 Configure the compiler for 32-bit ARM:
 
@@ -61,7 +56,7 @@ If desired, request the compiler to be built with [flambda][] optimizers:
 
     opam install conf-flambda-ios
 
-[flambda]: https://caml.inria.fr/pub/docs/manual-ocaml/flambda.html
+[flambda]: https://ocaml.org/manual/flambda.html
 
 Install the compiler and some packages:
 
@@ -148,7 +143,7 @@ Acknowledgements
 
 The OCaml cross-compiler in opam-cross-ios is based on a [patchset][psellos] by Gerd Stolpmann.
 
-[psellos]: psellos.com/ocaml/compile-to-iphone.html
+[psellos]: https://psellos.com/ocaml/compile-to-iphone.html
 
 License
 -------
@@ -158,4 +153,4 @@ All files contained in this repository are licensed under the [CC0 1.0 Universal
 References
 ----------
 
-See also [opam-cross-windows](https://github.com/whitequark/opam-cross-windows) and [opam-cross-android](https://github.com/whitequark/opam-cross-android).
+See also [opam-cross-windows](https://github.com/ocaml-cross/opam-cross-windows) and [opam-cross-android](https://github.com/ocaml-cross/opam-cross-android).
