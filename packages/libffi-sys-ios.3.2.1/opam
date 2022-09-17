@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 substs: ["libffi-sys-ios.config"]
 build: [
@@ -13,4 +13,12 @@ install: [
   ["make" "install"]
 ]
 remove:  [["rm" "-rf" "%{prefix}%/ios-deps/libffi"]]
-depends: ["conf-ios"]
+depends: ["ocaml""conf-ios"]
+flags: light-uninstall
+extra-files: [
+  "libffi-sys-ios.config.in" "md5=319a37814fc5d1476d2c1d62fcc46d2f"
+]
+url {
+  src: "ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz"
+  checksum: "md5=83b89587607e3eb65c70d361f13bab43"
+}

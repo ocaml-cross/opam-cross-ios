@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 substs: ["gdal-sys-ios.config"]
 patches: ["patches/fucking-autoconf.diff"]
@@ -28,4 +28,13 @@ install: [
   ["make" "install-lib"]
 ]
 remove:  [["rm" "-rf" "%{prefix}%/ios-deps/gdal"]]
-depends: ["conf-ios"]
+depends: ["ocaml""conf-ios"]
+flags: light-uninstall
+extra-files: [
+  ["gdal-sys-ios.config.in" "md5=3e911704ccb83db28f346ff071c0ece7"]
+  ["patches/fucking-autoconf.diff" "md5=ebfd4a493fff5acfab45f3e677ad066b"]
+]
+url {
+  src: "http://download.osgeo.org/gdal/2.1.2/gdal-2.1.2.tar.gz"
+  checksum: "md5=bd283ff1f88dfe8d750dbc5ecb7c73a8"
+}

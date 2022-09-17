@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 patches: [
   "patches/fix-install.patch"
@@ -17,6 +17,19 @@ remove: [
   ["ocamlfind" "-toolchain" "ios" "remove" "zip"]
 ]
 depends: [
+  "ocaml"
   "ocaml-ios"
   "ocamlfind" {build}
 ]
+synopsis:
+  "Provides easy access to compressed files in ZIP, GZIP and JAR format"
+flags: light-uninstall
+extra-files: [
+  ["patches/fix-install.patch" "md5=f2b1c4eee620112fe81641f2caf10bf8"]
+  ["patches/cross-compilation.patch" "md5=5ac56c60287e760a9eabba31e5549e8d"]
+]
+url {
+  src:
+    "https://forge.ocamlcore.org/frs/download.php/1616/camlzip-1.06.tar.gz"
+  checksum: "md5=0874be16d02a7165dfc31edc06636e4c"
+}

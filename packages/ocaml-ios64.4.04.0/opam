@@ -1,4 +1,4 @@
-opam-version: "1.2"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 substs: [
   "config/Makefile"
@@ -12,6 +12,7 @@ remove: [
   ["./remove.sh" "%{prefix}%"]
 ]
 depends: [
+  "ocaml" {= "4.04.0"}
   "ocamlfind" {>= "1.5.4"}
   "conf-ios"
 ]
@@ -21,4 +22,18 @@ depopts: [
 conflicts: [
   "ocaml-ios32"
 ]
-available: [ ocaml-version = "4.04.0" & (conf-ios:arch = "arm64" | conf-ios:arch = "amd64") ]
+available: conf-ios:arch = "arm64" | conf-ios:arch = "amd64"
+synopsis: "OCaml cross-compiler for 64-bit x86 and ARM iOS targets"
+extra-files: [
+  ["remove.sh" "md5=d8660f646b5a3155094e68d25ef00ff9"]
+  ["ios.conf.in" "md5=52c667a467d307094d2eba884d408c96"]
+  ["install.sh" "md5=b3badf88c7411c19d301e750a08917e1"]
+  ["config/s.h" "md5=a6073d22d6b9283d3d6cd55303aa2c1e"]
+  ["config/m.h" "md5=85c3a24ca39266e9832b5f88f5c14eb4"]
+  ["config/Makefile.in" "md5=a718c1b94d7bc9b9e670a0ba7437387c"]
+]
+url {
+  src:
+    "https://github.com/whitequark/ocaml/archive/1512603f6c824a12382ac24fcbbc08145f679b76.zip"
+  checksum: "md5=0ebfff9e4bf6bc80e33143368f4cc035"
+}

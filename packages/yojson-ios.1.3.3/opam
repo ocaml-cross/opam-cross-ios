@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 patches: ["patches/natdynlink-false.patch"]
 build: [
@@ -7,9 +7,29 @@ build: [
 ]
 remove: [["ocamlfind" "-toolchain" "ios" "remove" "yojson"]]
 depends: [
+  "ocaml"
   "ocaml-ios"
   "ocamlfind"
   "cppo"
   "easy-format-ios"
   "biniou-ios" {>= "1.0.6"}
 ]
+synopsis:
+  "Yojson is an optimized parsing and printing library for the JSON format"
+description: """\
+It addresses a few shortcomings of json-wheel including 2x speedup,
+polymorphic variants and optional syntax for tuples and variants.
+
+ydump is a pretty-printing command-line program provided with the
+yojson package.
+
+The program atdgen can be used to derive OCaml-JSON serializers and
+deserializers from type definitions."""
+flags: light-uninstall
+extra-files: [
+  "patches/natdynlink-false.patch" "md5=014985415ddc75ce73a2a4982db71707"
+]
+url {
+  src: "https://github.com/mjambon/yojson/archive/v1.3.3.tar.gz"
+  checksum: "md5=00686983d44b2a3f3bd61e95f1d44c3c"
+}

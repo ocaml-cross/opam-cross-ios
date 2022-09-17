@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 homepage: "http://mjambon.com/biniou.html"
 license: "BSD-3-Clause"
@@ -9,7 +9,15 @@ build: [
 ]
 remove: [["ocamlfind" "-toolchain" "ios" "remove" "biniou"]]
 depends: [
+  "ocaml"
   "ocaml-ios"
   "ocamlfind"
   "easy-format-ios"
 ]
+synopsis:
+  "Binary data format designed for speed, safety, ease of use and backward compatibility as protocols evolve"
+flags: light-uninstall
+url {
+  src: "https://github.com/mjambon/biniou/archive/v1.0.12.tar.gz"
+  checksum: "md5=2f36d212bd1ca8fef26c5f6b8f71886e"
+}

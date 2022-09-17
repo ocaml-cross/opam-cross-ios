@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 substs: ["libjpeg-sys-ios.config"]
 build: [
@@ -15,4 +15,12 @@ install: [
           "install-data-local"]
 ]
 remove:  [["rm" "-rf" "%{prefix}%/ios-deps/libjpeg"]]
-depends: ["conf-ios"]
+depends: ["ocaml""conf-ios"]
+flags: light-uninstall
+extra-files: [
+  "libjpeg-sys-ios.config.in" "md5=0019d5fc325d85b04e5312cc17ce1cbf"
+]
+url {
+  src: "http://www.ijg.org/files/jpegsrc.v9b.tar.gz"
+  checksum: "md5=6a9996ce116ec5c52b4870dbcd6d3ddb"
+}
