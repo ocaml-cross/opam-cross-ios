@@ -1,0 +1,124 @@
+#DESTDIR=%{prefix}%/ios-sysroot/
+PREFIX=%{prefix}%/ios-sysroot
+BINDIR=$(PREFIX)/bin
+LIBDIR=$(PREFIX)/lib/ocaml
+STUBLIBDIR=$(LIBDIR)/stublibs
+MANDIR=man
+BYTERUN=%{prefix}%/bin/ocamlrun
+MANEXT=1
+
+# for build
+CAMLRUN=%{prefix}%/bin/ocamlrun
+CAMLYACC=%{prefix}%/bin/ocamlyacc
+
+# for install
+OCAMLRUN=%{prefix}%/bin/ocamlrun
+OCAMLYACC=%{prefix}%/bin/ocamlyacc
+
+# for ocamlheader
+TARGET_BINDIR=%{prefix}%/bin
+
+RANLIB=ranlib
+RANLIBCMD=ranlib
+ARCMD=ar
+HASHBANGSCRIPTS=true
+UNIX_OR_WIN32=unix
+UNIXLIB=unix
+GRAPHLIB=nograph
+FLAMBDA=%{conf-flambda-ios:installed?true:false}%
+WITH_SPACETIME=false
+LIBUNWIND_AVAILABLE=false
+LIBUNWIND_LINK_FLAGS=
+PROFINFO_WIDTH=26
+SAFE_STRING=false
+
+BNG_ARCH=generic
+BNG_ASM_LEVEL=0
+PTHREAD_LINK=
+PTHREAD_CAML_LINK=
+X11_INCLUDES=
+X11_LINK=
+TK_DEFS=
+TK_LINK=
+LIBBFD_LINK=
+BYTECC=clang %{conf-ios:cflags}% -O2
+CC=$(BYTECC)
+BYTECCCOMPOPTS=-Wall
+BYTECCDBGCOMPOPTS=-g
+NAME_OBJ_FLAG=-o
+BYTECCLINKOPTS=%{conf-ios:ldflags}%
+BYTECCLIBS=-lm
+BYTECCRPATH=-Wl,-rpath,
+EXE=
+SUPPORTS_SHARED_LIBRARIES=false
+SHAREDCCCOMPOPTS=
+MKSHAREDLIBRPATH=
+NATDYNLINKOPTS=
+SYSLIB=-l$(1)
+#ml let syslib x = "-l"^x;;
+
+### How to build a static library
+MKLIB=ar rc $(1) $(2); ranlib $(1)
+#ml let mklib out files opts = Printf.sprintf "ar rc %s %s %s; ranlib %s" out opts files out;;
+ARCH=%{conf-ios:arch}%
+MODEL=%{conf-ios:subarch}%
+SYSTEM=macosx
+OCAMLOPT_CFLAGS=%{conf-ios:cflags}%
+OCAMLOPT_CPPFLAGS=%{conf-ios:cflags}%
+NATIVECC=$(BYTECC)
+NATIVECCCOMPOPTS=-Wall
+NATIVECCPROFOPTS=-Wall
+NATIVECCLINKOPTS=
+NATIVECCRPATH=-Wl,-rpath,
+NATIVECCLIBS=-lm
+ASM=clang %{conf-ios:cflags}% -c
+ASPP=$(BYTECC) -c
+ASPPPROFFLAGS=-DPROFILING
+PROFILING=true
+DYNLINKOPTS= -ldl
+OTHERLIBRARIES=unix str bigarray systhreads
+CC_PROFILE=-pg
+SYSTHREAD_SUPPORT=true
+PARTIALLD=ld -r
+PACKLD=$(PARTIALLD) $(NATIVECCLINKOPTS) -o #
+DLLCCCOMPOPTS=
+IFLEXDIR=
+O=o
+A=a
+SO=so
+EXT_OBJ=.o
+EXT_ASM=.s
+EXT_LIB=.a
+EXT_DLL=.so
+EXTRALIBS=
+CCOMPTYPE=cc
+TOOLCHAIN=cc
+NATDYNLINK=false
+CMXS=cmxa
+MKEXE=$(BYTECC)
+MKEXEDEBUGFLAG=-g
+MKDLL=
+MKMAINDLL=
+RUNTIMED=runtimed
+SHARED=noshared
+WITH_DEBUGGER=
+WITH_OCAMLDOC=
+ASM_CFI_SUPPORTED=false
+WITH_FRAME_POINTERS=false
+TARGET=%{conf-ios:triple}%
+
+ENABLE_CALL_COUNTS=true
+WITH_PROFINFO=false
+
+WITH_FLAMBDA_INVARIANTS=false
+FORCE_SAFE_STRING=false
+DEFAULT_SAFE_STRING=false
+WINDOWS_UNICODE=0
+AFL_INSTRUMENT=false
+MAX_TESTSUITE_DIR_RETRIES=0
+FLAT_FLOAT_ARRAY=%{conf-no-flat-float-array-ios:installed?false:true}%
+AWK=awk
+
+EMPTY=
+OUTPUTEXE=-o $(EMPTY)
+OUTPUTOBJ=-o $(EMPTY)
