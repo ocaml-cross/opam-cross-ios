@@ -1,0 +1,294 @@
+# Makefile.config.  Generated from Makefile.config.in manually.
+
+#**************************************************************************
+#*                                                                        *
+#*                                 OCaml                                  *
+#*                                                                        *
+#*            Xavier Leroy, projet Cristal, INRIA Rocquencourt            *
+#*                                                                        *
+#*   Copyright 1999 Institut National de Recherche en Informatique et     *
+#*     en Automatique.                                                    *
+#*                                                                        *
+#*   All rights reserved.  This file is distributed under the terms of    *
+#*   the GNU Lesser General Public License version 2.1, with the          *
+#*   special exception on linking described in the file LICENSE.          *
+#*                                                                        *
+#**************************************************************************
+
+# The configuration Makefile
+
+## Cross-specific variables
+CAMLRUN=%{bin}%/ocamlrun
+OCAMLRUN=%{bin}%/ocamlrun
+CAMLYACC=%{bin}%/ocamlyacc
+OCAMLYACC=%{bin}%/ocamlyacc
+
+## Variables defining the current version of OCaml
+OCAML_DEVELOPMENT_VERSION=false
+OCAML_VERSION_MAJOR=4
+OCAML_VERSION_MINOR=14
+OCAML_VERSION_PATCHLEVEL=0
+OCAML_VERSION_EXTRA=
+
+## The EMPTY variable, used in other definitions
+EMPTY=
+
+## Arguments passed to the configure script
+
+CONFIGURE_ARGS=--enable-installing-bytecode-programs --disable-debug-runtime --disable-debugger --disable-instrumented-runtime --disable-ocamldoc --disable-ocamltest --disable-stdlib-manpages --disable-shared --with-pic --without-odoc
+
+## Top build directory
+
+TOP_BUILDDIR = .
+
+## Installation directories
+
+prefix=%{prefix}%/ios-sysroot
+
+exec_prefix=%{prefix}%/ios-sysroot
+
+### Where to install the binaries
+BINDIR=${exec_prefix}/bin
+
+datarootdir=${prefix}/share
+
+### Where to install the standard library
+LIBDIR=${exec_prefix}/lib/ocaml
+
+### Where to install the stub code for the standard library
+STUBLIBDIR=${exec_prefix}/lib/ocaml/stublibs
+
+### Where to install the man pages
+# Man pages for commands go in $(MANDIR)/man1
+# Man pages for the library go in $(MANDIR)/man3
+MANDIR=${prefix}/man
+PROGRAMS_MAN_DIR=$(MANDIR)/man1
+LIBRARIES_MAN_DIR=$(MANDIR)/man3
+
+### Do #! scripts work on your system?
+### Beware: on some systems (e.g. SunOS 4), this will work only if
+### the string "#!$(BINDIR)/ocamlrun" is less than 32 characters long.
+### In doubt, set HASHBANGSCRIPTS to false.
+SHEBANGSCRIPTS=true
+LONG_SHEBANG=false
+# For compatibility
+HASHBANGSCRIPTS:=$(SHEBANGSCRIPTS)
+
+### Path to the libtool script
+LIBTOOL = $(TOP_BUILDDIR)/libtool
+
+### Which C compiler to use
+TOOLPREF=
+CC=gcc
+
+CC_HAS_DEBUG_PREFIX_MAP=true
+AS_HAS_DEBUG_PREFIX_MAP=false
+
+CFLAGS=%{conf-ios:cflags}%
+
+### Additional link-time options
+# To support dynamic loading of shared libraries (they need to look at
+# our own symbols):
+OC_LDFLAGS=
+
+LDFLAGS=%{conf-ios:ldflags}%
+
+### How to invoke the C preprocessor through the C compiler
+CPP=gcc -E
+
+### How to invoke ar
+ARCMD=ar
+
+### Extension of object files
+O=o
+EXT_OBJ=.o
+
+### How to tell the C compiler to output an object file
+OUTPUTOBJ=-o $(EMPTY)
+
+### Extension of static libraries
+A=a
+EXT_LIB=.a
+
+### Extension of assembler files
+S=s
+EXT_ASM=.s
+
+### Extension for shared libraries
+SO=so
+EXT_DLL=.so
+
+SHAREDLIB_CFLAGS=
+
+# Compile-time option to $(CC) to add a directory to be searched
+# at run-time for shared libraries
+RPATH=
+
+############# Configuration for the native-code compiler
+
+### Whether the native compiler has been enabled or not
+NATIVE_COMPILER=true
+
+### Name of architecture for the native-code compiler
+### Currently supported:
+###
+### i386        Intel Pentium PCs under Linux, *BSD*, NextStep
+### power       Macintosh under Mac OS X and Linux
+### arm         ARM under Linux
+###
+### Set ARCH=none if your machine is not supported
+ARCH=%{conf-ios:arch}%
+
+# Whether the architecture has 64 bits
+ARCH64=true
+
+# Endianness for this architecture
+ENDIANNESS=le
+
+### Name of architecture model for the native-code compiler.
+### Some architectures come in several slightly different flavors
+### that share a common code generator. This variable tailors the
+### behavior of the code generator to the particular flavor used.
+### Currently needed only if ARCH=power; leave MODEL=default for
+### other architectures.
+### If ARCH=power: set MODEL=ppc
+### For other architectures: leave MODEL=default
+###
+MODEL=default
+
+### Name of operating system family for the native-code compiler.
+SYSTEM=macosx
+
+### Command and flags to use for assembling ocamlopt-generated code
+ASM=${CC} %{conf-ios:cflags}% -c
+
+### Command and flags to use for assembling .S files (often with preprocessing)
+ASPP=${CC} %{conf-ios:cflags}% -c
+
+### Set to "true" to install ".byte" executables (ocamlc.byte, etc.)
+INSTALL_BYTECODE_PROGRAMS=true
+
+############# Configuration for the contributed libraries
+
+### Which libraries to compile and install
+# Currently available:
+#       bigarray          Large, multidimensional numerical arrays
+#                           (legacy support: this library is now part of the
+#                            Standard Library)
+#       dynlink           Dynamic linking (bytecode and native)
+#       (win32)unix       Unix system calls
+#       str               Regular expressions and high-level string processing
+#       systhreads        Same as threads, requires POSIX threads
+OTHERLIBRARIES=unix bigarray str systhreads
+
+### Link-time options to ocamlc or ocamlopt for linking with POSIX threads
+# Needed for the "systhreads" package
+PTHREAD_LIBS=-lpthread
+PTHREAD_CAML_LIBS=$(addprefix -cclib ,$(PTHREAD_LIBS))
+
+UNIX_OR_WIN32=unix
+UNIXLIB=unix
+INSTALL_SOURCE_ARTIFACTS=true
+
+OC_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -pthread -Wall -Wdeclaration-after-statement -Werror -fno-common
+CFLAGS?=%{conf-ios:cflags}%
+OC_CPPFLAGS=-D_FILE_OFFSET_BITS=64 -DCAML_NAME_SPACE
+CPPFLAGS?=
+OCAMLC_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -pthread $(CFLAGS)
+
+OCAMLC_CPPFLAGS=-D_FILE_OFFSET_BITS=64 $(CPPFLAGS)
+BYTECCLIBS=-lm -lpthread
+EXE=
+OUTPUTEXE=-o $(EMPTY)
+SUPPORTS_SHARED_LIBRARIES=false
+MKSHAREDLIBRPATH=
+DYNLINKOPTS=
+NATDYNLINK=false
+NATDYNLINKOPTS=
+SYSLIB=-l$(1)
+MKLIB=ar rc $(1) $(2); ranlib $(1)
+# #7678: ocamlopt uses these only to compile .c files, and the behaviour for the
+#        two drivers should be identical.
+OCAMLOPT_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -pthread $(CFLAGS)
+OCAMLOPT_CPPFLAGS=-D_FILE_OFFSET_BITS=64 $(CPPFLAGS)
+NATIVECCLIBS=-lm
+SYSTHREAD_SUPPORT=true
+PACKLD=ld -r -arch %{conf-ios:subarch}% -o $(EMPTY)
+FLEXDLL_CHAIN=
+EXTRALIBS=
+CCOMPTYPE=cc
+TOOLCHAIN=cc
+CMXS=cmxa
+
+# On Windows, MKDLL, MKEXE and MKMAINDLL must ultimately be equivalent to
+#   $(FLEXLINK_CMD) $(FLEXLINK_FLAGS) [-exe|-maindll]
+# or OCAML_FLEXLINK overriding will not work (see utils/config.mlp)
+
+MKEXE=$(CC) $(OC_CFLAGS) $(CFLAGS) $(OC_LDFLAGS) $(LDFLAGS) -Wl,-no_compact_unwind
+MKDLL=shared-libs-not-available
+MKMAINDLL=shared-libs-not-available
+
+MKEXEDEBUGFLAG=-g
+RUNTIMED=false
+INSTRUMENTED_RUNTIME=false
+INSTRUMENTED_RUNTIME_LIBS=
+WITH_DEBUGGER=
+WITH_CAMLTEX=true
+WITH_OCAMLDOC=
+WITH_OCAMLTEST=
+ASM_CFI_SUPPORTED=true
+WITH_FRAME_POINTERS=false
+WITH_PROFINFO=false
+PROFINFO_WIDTH=0
+WITH_FPIC=true
+TARGET=%{conf-ios:triple}%
+HOST=x86_64-apple-darwin
+FLAMBDA=%{conf-flambda-ios:installed?true:false}%
+WITH_FLAMBDA_INVARIANTS=false
+WITH_CMM_INVARIANTS=false
+FORCE_SAFE_STRING=true
+DEFAULT_SAFE_STRING=true
+WINDOWS_UNICODE=0
+AFL_INSTRUMENT=false
+FLAT_FLOAT_ARRAY=%{conf-no-flat-float-array-ios:installed?false:true}%
+FUNCTION_SECTIONS=false
+AWK=awk
+STDLIB_MANPAGES=false
+NAKED_POINTERS=true
+
+### Native command to build ocamlrun.exe
+
+ifeq "$(TOOLCHAIN)" "msvc"
+  MERGEMANIFESTEXE=test ! -f $(1).manifest \
+          || mt -nologo -outputresource:$(1) -manifest $(1).manifest \
+          && rm -f $(1).manifest
+  MKEXE_USING_COMPILER=$(CC) $(OC_CFLAGS) $(CFLAGS) $(OUTPUTEXE)$(1) $(2) \
+    /link /subsystem:console $(OC_LDFLAGS) $(LDFLAGS) && ($(MERGEMANIFESTEXE))
+else
+  MKEXE_USING_COMPILER=$(CC) $(OC_CFLAGS) $(CFLAGS) $(OC_LDFLAGS) $(LDFLAGS) \
+    $(OUTPUTEXE)$(1) $(2)
+endif # ifeq "$(TOOLCHAIN)" "msvc"
+
+FLEXLINK_FLAGS=
+FLEXLINK_CMD=flexlink
+FLEXLINK=$(FLEXLINK_CMD) $(FLEXLINK_FLAGS)
+
+# Deprecated variables
+
+## Variables renamed in OCaml 4.13
+
+RUNTIMEI=$(INSTRUMENTED_RUNTIME)
+
+### pthread-related variables
+
+PTHREAD_LINK=$(PTHREAD_LIBS)
+PTHREAD_CAML_LINK=$(PTHREAD_CAML_LIBS)
+
+### It is expected that the value of PTHREAD_LINK changes between OCaml
+### 4.12 and 4.13. Indeed, for OCaml 4.12 most of the time the variable
+### contained -lpthread. From 4.13 onward it will most of the time be
+### empty since we have -pthread in CFLAGS which implies -lpthread.
+
+### How to invoke ranlib
+RANLIB=ranlib
+RANLIBCMD=ranlib
