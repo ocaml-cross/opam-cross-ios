@@ -1,4 +1,4 @@
-opam-version: "1.2"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 patches: ["patches/no-shlib.patch"]
 build: [
@@ -14,8 +14,21 @@ build: [
 ]
 remove: [["ocamlfind" "-toolchain" "ios" "remove" "proj4"]]
 depends: [
+  "ocaml"
   "proj4-sys-ios"
   "ocaml-ios"
   "ocamlfind" {build}
   "ocamlbuild" {build}
 ]
+synopsis: "Bindings to the PROJ.4 projection library"
+description: """\
+This library provides access to the PROJ.4 geographic coordinate
+projection/transformation library (http://trac.osgeo.org/proj/)."""
+flags: light-uninstall
+extra-files: [
+  "patches/no-shlib.patch" "md5=be27030901a2d34220a3bfb6aeaa4e2f"
+]
+url {
+  src: "https://github.com/hcarty/proj4ml/archive/v0.9.1.tar.gz"
+  checksum: "md5=0472a63fe085b3729d9d532023b7c13c"
+}

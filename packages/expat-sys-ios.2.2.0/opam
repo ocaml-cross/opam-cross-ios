@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 substs: ["expat-sys-ios.config"]
 build: [
@@ -13,4 +13,13 @@ install: [
   ["env" "make" "install"]
 ]
 remove:  [["rm" "-rf" "%{prefix}%/ios-deps/expat"]]
-depends: ["conf-ios"]
+depends: ["ocaml""conf-ios"]
+flags: light-uninstall
+extra-files: [
+  "expat-sys-ios.config.in" "md5=9db6d2e654a61785595234691682deec"
+]
+url {
+  src:
+    "http://downloads.sourceforge.net/project/expat/expat/2.2.0/expat-2.2.0.tar.bz2"
+  checksum: "md5=2f47841c829facb346eb6e3fab5212e2"
+}

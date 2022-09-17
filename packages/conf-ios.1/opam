@@ -1,4 +1,4 @@
-opam-version: "1.2"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 build: [
   ["sh" "-c" "echo \"arch: \\\"${ARCH}\\\"\" >>conf-ios.config"]
@@ -11,3 +11,4 @@ build: [
   ["sh" "-c" "echo \"triple: \\\"${SUBARCH/arm64/arm}-apple-darwin\\\"\" >>conf-ios.config"]
   ["sh" "-c" "echo \"triplereal: \\\"${SUBARCH/arm64/aarch64}-apple-darwin\\\"\" >>conf-ios.config"]
 ]
+depends: ["ocaml"]

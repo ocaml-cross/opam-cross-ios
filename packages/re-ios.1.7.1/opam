@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 build: [
   ["ocaml" "setup.ml" "-configure" "--prefix" "%{prefix}%/ios-sysroot"
@@ -7,4 +7,10 @@ build: [
   ["env" "OCAMLFIND_TOOLCHAIN=ios" "ocaml" "setup.ml" "-install"]
 ]
 remove: [["ocamlfind" "-toolchain" "ios" "remove" "re"]]
-depends: ["ocaml-ios" "ocamlfind"]
+depends: ["ocaml""ocaml-ios" "ocamlfind"]
+synopsis: "RE is a regular expression library for OCaml"
+flags: light-uninstall
+url {
+  src: "https://github.com/ocaml/ocaml-re/archive/1.7.1.tar.gz"
+  checksum: "md5=0e45743512b7ab5e6b175f955dc72002"
+}

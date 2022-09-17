@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 substs: ["freetype-sys-ios.config"]
 build: [
@@ -21,7 +21,17 @@ install: [
 ]
 remove:  [["rm" "-rf" "%{prefix}%/ios-deps/freetype"]]
 depends: [
+  "ocaml"
   "conf-ios"
   "libpng-sys-ios"
   "bzip2-sys-ios"
 ]
+flags: light-uninstall
+extra-files: [
+  "freetype-sys-ios.config.in" "md5=6c5ab91cb5ee496446a9bd5703062fae"
+]
+url {
+  src:
+    "http://download.savannah.gnu.org/releases/freetype/freetype-2.7.tar.bz2"
+  checksum: "md5=be4601619827b7935e1d861745923a68"
+}

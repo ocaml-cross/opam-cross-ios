@@ -1,4 +1,4 @@
-opam-version: "1.2"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 patches: [
   "patches/cross-compilation.patch"
@@ -8,6 +8,17 @@ build: [[make "OCAMLFIND_TOOLCHAIN=ios" "STATIC=1"]]
 install: [[make "OCAMLFIND_TOOLCHAIN=ios" "STATIC=1" "install"]]
 remove: [["ocamlfind" "-toolchain" "ios" "remove" "camlgpc"]]
 depends: [
+  "ocaml"
   "ocaml-ios"
   "ocamlfind" {build}
 ]
+synopsis: "Interface to Alan Murta's General Polygon Clipper"
+flags: light-uninstall
+extra-files: [
+  ["patches/install-cmx.patch" "md5=61af0b996de4babc85118f660d94aa27"]
+  ["patches/cross-compilation.patch" "md5=2af129da4bfc271223d8bc28b71b09fd"]
+]
+url {
+  src: "https://github.com/johnwhitington/camlgpc/archive/v1.0.tar.gz"
+  checksum: "md5=d00bf0237fda31301f9cc8e1cd8db2af"
+}

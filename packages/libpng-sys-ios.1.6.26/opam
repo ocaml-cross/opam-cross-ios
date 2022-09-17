@@ -1,4 +1,4 @@
-opam-version: "1"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 substs: ["libpng-sys-ios.config"]
 build: [
@@ -15,4 +15,13 @@ install: [
           "install-nodist_pkgincludeHEADERS"]
 ]
 remove:  [["rm" "-rf" "%{prefix}%/ios-deps/libpng"]]
-depends: ["conf-ios"]
+depends: ["ocaml""conf-ios"]
+flags: light-uninstall
+extra-files: [
+  "libpng-sys-ios.config.in" "md5=a64951db4f7737576eae6012b3065681"
+]
+url {
+  src:
+    "ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng16/libpng-1.6.26.tar.gz"
+  checksum: "md5=236cd975520fc1f34cc0b8f0e615f7a0"
+}

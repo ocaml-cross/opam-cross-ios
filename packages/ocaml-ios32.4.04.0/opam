@@ -1,4 +1,4 @@
-opam-version: "1.2"
+opam-version: "2.0"
 maintainer: "whitequark@whitequark.org"
 patches: ["patches/arm_const_islands.patch"]
 substs: [
@@ -13,6 +13,7 @@ remove: [
   ["./remove.sh" "%{prefix}%"]
 ]
 depends: [
+  "ocaml" {= "4.04.0"}
   "ocamlfind" {>= "1.5.4"}
   "conf-ios"
 ]
@@ -22,4 +23,19 @@ depopts: [
 conflicts: [
   "ocaml-ios64"
 ]
-available: [ ocaml-version = "4.04.0" & (conf-ios:arch = "arm" | conf-ios:arch = "i386") ]
+available: conf-ios:arch = "arm" | conf-ios:arch = "i386"
+synopsis: "OCaml cross-compiler for 32-bit x86 and ARM iOS targets"
+extra-files: [
+  ["remove.sh" "md5=d8660f646b5a3155094e68d25ef00ff9"]
+  ["ios.conf.in" "md5=52c667a467d307094d2eba884d408c96"]
+  ["install.sh" "md5=b3badf88c7411c19d301e750a08917e1"]
+  ["config/s.h" "md5=a6073d22d6b9283d3d6cd55303aa2c1e"]
+  ["config/m.h" "md5=58ceb090db9e9fb7cbc11decaaabb01d"]
+  ["config/Makefile.in" "md5=a718c1b94d7bc9b9e670a0ba7437387c"]
+  ["patches/arm_const_islands.patch" "md5=3d8dce911659909cf6d8edef44426aa2"]
+]
+url {
+  src:
+    "https://github.com/whitequark/ocaml/archive/1512603f6c824a12382ac24fcbbc08145f679b76.zip"
+  checksum: "md5=0ebfff9e4bf6bc80e33143368f4cc035"
+}
