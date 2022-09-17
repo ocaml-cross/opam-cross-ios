@@ -1,0 +1,31 @@
+opam-version: "2.0"
+maintainer: "Boris D. <borisd@gmx.com>"
+substs: [
+  "config/Makefile"
+  "ios.conf"
+]
+patches: [
+  "patches/ios.patch"
+  "patches/system.patch"
+]
+build: [
+  [make "-j%{jobs}%" "world"]
+  [make "-j%{jobs}%" "opt"]
+]
+install: [
+  [make "-j%{jobs}%" "install"]
+  ["sh" "./install.sh" "%{prefix}%"]
+]
+remove: [
+  ["sh" "./remove.sh" "%{prefix}%"]
+]
+depends: [
+  "ocaml" {= "4.07.1"}
+  "ocamlfind" {>= "1.5.4"}
+  "conf-ios" {conf-ios:arch = "arm64" | conf-ios:arch = "amd64"}
+]
+synopsis: "OCaml cross-compiler for 64-bit x86 and ARM iOS targets"
+url {
+    src: "https://github.com/ocaml/ocaml/archive/4.07.1.tar.gz"
+    checksum: "md5=352fe8d46cb238a26aa10c38bad6ecb6"
+}
