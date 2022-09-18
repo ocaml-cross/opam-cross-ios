@@ -1,0 +1,2 @@
+cflags:    "-I%{prefix}%/ios-deps/libffi/lib/libffi-%{version}%/include"
+ldflags:   "-L%{prefix}%/ios-deps/libffi/lib"

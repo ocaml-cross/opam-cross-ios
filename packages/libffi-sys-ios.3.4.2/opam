@@ -1,0 +1,24 @@
+opam-version: "2.0"
+maintainer: "whitequark@whitequark.org"
+substs: ["libffi-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triplereal}%"
+                 "--prefix=%{prefix}%/ios-deps/libffi"
+                 "--disable-shared"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"]
+  ["make" "-j" jobs]
+]
+install: [
+  ["make" "install"]
+]
+remove:  [["rm" "-rf" "%{prefix}%/ios-deps/libffi"]]
+depends: ["ocaml""conf-ios"]
+flags: light-uninstall
+extra-files: [
+  "libffi-sys-ios.config.in" "md5=319a37814fc5d1476d2c1d62fcc46d2f"
+]
+url {
+  src: "https://github.com/libffi/libffi/releases/download/v3.4.2/libffi-3.4.2.tar.gz"
+  checksum: "md5=294b921e6cf9ab0fbaea4b639f8fdbe8"
+}
