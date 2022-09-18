@@ -7,7 +7,7 @@ build: [
   ["env" "OCAMLFIND_TOOLCHAIN=ios" "ocaml" "setup.ml" "-install"]
 ]
 remove: [["ocamlfind" "-toolchain" "ios" "remove" "re"]]
-depends: ["ocaml""ocaml-ios" "ocamlfind"]
+depends: ["ocaml" "ocaml-ios" "ocamlfind" "ocamlbuild"]
 synopsis: "RE is a regular expression library for OCaml"
 flags: light-uninstall
 url {
