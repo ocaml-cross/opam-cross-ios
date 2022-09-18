@@ -1,18 +1,16 @@
 opam-cross-ios
 ==============
 
-This repository contains an up-to-date iOS toolchain featuring OCaml 4.04.0, as well as some commonly used packages.
+This repository contains an up-to-date iOS toolchain featuring OCaml 4.14.0, 4.07.1, 4.04.0, as well as some commonly used packages.
 
 The supported build systems is OS X 10.9 and later. The supported target systems are 32-bit and 64-bit x86 iPhone simulator and ARM iPhone.
-
-If you need support for other platforms or versions, please [open an issue](https://github.com/whitequark/opam-cross-ios/issues).
 
 Installation
 ------------
 
 Add this repository to OPAM:
 
-    opam repository add ios git://github.com/whitequark/opam-cross-ios
+    opam repository add ios git://github.com/ocaml-cross/opam-cross-ios
 
 Switch to 32-bit compiler when compiling for 32-bit targets:
 
@@ -23,11 +21,6 @@ Otherwise, use a regular compiler; its version must match the version of the cro
 
     opam switch 4.04.0
     eval `opam config env`
-
-Pin some prerequisite packages that don't yet have fixes merged upstream:
-
-    opam pin add ocamlbuild https://github.com/ocaml/ocamlbuild.git
-    opam pin add topkg https://github.com/whitequark/topkg.git#ios
 
 Configure the compiler for 32-bit ARM:
 
