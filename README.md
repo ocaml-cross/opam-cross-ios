@@ -63,9 +63,9 @@ Install the compiler and some packages:
 Write some code using them:
 
     let () =
-      let regexp = Re_pcre.regexp {|\b([a-z]+)\b|} in
+      let regexp = Re.Pcre.regexp {|\b([a-z]+)\b|} in
       let result = Re.exec regexp "Hello, world!" in
-      Format.printf "match: %s\n" (Re.get result 1)
+      Format.printf "match: %s\n" (Re.Group.get result 1)
 
 Make an object file out of it, link `libasmrun.a` to your final executable, and link it with your iOS project (you'll need to call `caml_startup(argv)` to run OCaml code; see [this article](http://www.mega-nerd.com/erikd/Blog/CodeHacking/Ocaml/calling_ocaml.html)):
 
