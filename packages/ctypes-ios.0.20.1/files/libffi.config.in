@@ -1,0 +1,3 @@
+libffi_available=true
+libffi_opt=%{libffi-sys-ios:cflags}%
+libffi_lib=%{libffi-sys-ios:ldflags}% -lffi
