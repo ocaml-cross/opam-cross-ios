@@ -1,0 +1,3 @@
+pkgconfig: "%{prefix}%/ios-deps/libev/lib/pkgconfig"
+cflags:    "-I%{prefix}%/ios-deps/libev/include"
+ldflags:   "-L%{prefix}%/ios-deps/libev/lib"

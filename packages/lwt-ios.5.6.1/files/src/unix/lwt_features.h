@@ -1,0 +1,9 @@
+#ifndef LWT_LWT_FEATURES_H
+#define LWT_LWT_FEATURES_H
+#define HAVE_BSD_MINCORE
+#define HAVE_FD_PASSING
+#define HAVE_GETPEEREID
+#define HAVE_LIBEV
+#define HAVE_PTHREAD
+#define HAVE_ST_MTIMESPEC_TV_NSEC
+#endif
