@@ -1,0 +1,14 @@
+--- a/src/unix/dune	2022-06-28 23:48:17.000000000 -0700
++++ b/src/unix/dune	2022-09-21 15:30:15.000000000 -0700
+@@ -34,12 +34,6 @@
+  (targets discover_arguments)
+  (action (with-stdout-to %{targets} (echo ""))))
+
+-(rule
+- (targets
+-  unix_c_flags.sexp unix_c_library_flags.sexp lwt_features.h lwt_features.ml)
+- (deps (:exe config/discover.exe) discover_arguments)
+- (action (run %{exe})))
+-
+ (copy_files unix_c/*)
+ (copy_files windows_c/*.c)
