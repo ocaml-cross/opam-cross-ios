@@ -1,0 +1,26 @@
+opam-version: "2.0"
+maintainer: "Boris D. <borisd@gmx.com>"
+substs: ["sqlite3-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triplereal}%"
+                 "--prefix=%{prefix}%/ios-deps/sqlite3"
+                 "--disable-shared"
+                 "--with-pic"
+                 "PATH=%{conf-ios:toolchain}%:/usr/bin:/bin"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "CFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"
+                 "CC=" "CXX="]
+  ["make" "-j" jobs
+          "PATH=%{conf-ios:toolchain}%:/usr/bin:/bin"
+          "SHELL_CFLAGS=-DSQLITE_NOHAVE_SYSTEM"]
+]
+install: [
+  ["make" "install" "PATH=%{conf-ios:toolchain}%:/usr/bin:/bin"]
+]
+remove:  ["rm" "-rf" "%{prefix}%/ios-deps/sqlite3"]
+depends: ["conf-ios"]
+url {
+  src: "https://sqlite.org/2022/sqlite-autoconf-3390300.tar.gz"
+  checksum: "md5=b77730d5c2f8c85b223d1959d08b6514"
+}
