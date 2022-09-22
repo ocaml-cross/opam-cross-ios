@@ -1,0 +1,3 @@
+pkgconfig: "%{prefix}%/ios-deps/sqlite3/lib/pkgconfig"
+cflags:    "-I%{prefix}%/ios-deps/sqlite3/include"
+ldflags:   "-L%{prefix}%/ios-deps/sqlite3/lib"
