@@ -20,7 +20,7 @@ build: [
 ]
 
 depends: [
-  "ocaml" {>= "4.02"}
+  "ocaml-ios" {>= "4.02"}
   "dune"
   "ounit" {with-test}
   "seq-ios"
