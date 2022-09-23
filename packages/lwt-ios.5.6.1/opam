@@ -37,6 +37,10 @@ depopts: [
 patches: [
     "patches/dune.patch"
 ]
+substs: [
+  "src/unix/unix_c_flags.sexp"
+  "src/unix/unix_c_library_flags.sexp"
+]
 
 build: [
   ["dune" "build" "-p" "lwt" "-j" jobs "-x" "ios"]
