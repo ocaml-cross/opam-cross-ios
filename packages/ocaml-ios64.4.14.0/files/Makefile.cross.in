@@ -183,7 +183,7 @@ OTHERLIBRARIES=unix bigarray str systhreads
 
 ### Link-time options to ocamlc or ocamlopt for linking with POSIX threads
 # Needed for the "systhreads" package
-PTHREAD_LIBS=-lpthread
+PTHREAD_LIBS=
 PTHREAD_CAML_LIBS=$(addprefix -cclib ,$(PTHREAD_LIBS))
 
 UNIX_OR_WIN32=unix
