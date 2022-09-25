@@ -190,11 +190,11 @@ UNIX_OR_WIN32=unix
 UNIXLIB=unix
 INSTALL_SOURCE_ARTIFACTS=true
 
-OC_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -Wall -Wdeclaration-after-statement -Werror -fno-common
+OC_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -pthread -Wall -Wdeclaration-after-statement -Werror -fno-common
 CFLAGS?=%{conf-ios:cflags}%
 OC_CPPFLAGS=-D_FILE_OFFSET_BITS=64 -DCAML_NAME_SPACE
 CPPFLAGS?=
-OCAMLC_CFLAGS=-O2 -fno-strict-aliasing -fwrapv $(CFLAGS)
+OCAMLC_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -pthread $(CFLAGS)
 
 OCAMLC_CPPFLAGS=-D_FILE_OFFSET_BITS=64 $(CPPFLAGS)
 BYTECCLIBS=-lm
@@ -209,7 +209,7 @@ SYSLIB=-l$(1)
 MKLIB=ar rc $(1) $(2); ranlib $(1)
 # #7678: ocamlopt uses these only to compile .c files, and the behaviour for the
 #        two drivers should be identical.
-OCAMLOPT_CFLAGS=-O2 -fno-strict-aliasing -fwrapv $(CFLAGS)
+OCAMLOPT_CFLAGS=-O2 -fno-strict-aliasing -fwrapv -pthread $(CFLAGS)
 OCAMLOPT_CPPFLAGS=-D_FILE_OFFSET_BITS=64 $(CPPFLAGS)
 NATIVECCLIBS=-lm
 SYSTHREAD_SUPPORT=true
