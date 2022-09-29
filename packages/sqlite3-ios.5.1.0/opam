@@ -18,9 +18,12 @@ depends: [
   "dune" {>= "2.7"}
   "ocaml-ios" {>= "4.12"}
   "sqlite3-sys-ios"
-  "dune-configurator"
-  "ppx_inline_test" {with-test}
-  "odoc" {with-doc}
+]
+substs: [
+  "src/c_library_flags.sexp"
+]
+patches: [
+  "patches/dune.patch"
 ]
 build: [
   ["dune" "subst" "-n" "sqlite3"] {dev}
@@ -30,8 +33,6 @@ build: [
     "-j" jobs
     "-x" "ios"
     "@install"
-    "@runtest" {with-test}
-    "@doc" {with-doc}
   ]
 ]
 dev-repo: "git+https://github.com/mmottl/sqlite3-ocaml.git"
