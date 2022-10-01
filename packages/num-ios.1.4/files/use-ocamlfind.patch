@@ -1,0 +1,24 @@
+--- a/src/Makefile	2022-10-01 12:18:39.000000000 -0700
++++ b/src/Makefile	2022-10-01 12:23:59.000000000 -0700
+@@ -1,7 +1,7 @@
+-OCAMLC=ocamlc
+-OCAMLOPT=ocamlopt
+-OCAMLDEP=ocamldep
+-OCAMLMKLIB=ocamlmklib
++OCAMLC=ocamlfind ocamlc
++OCAMLOPT=ocamlfind ocamlopt
++OCAMLDEP=ocamlfind ocamldep
++OCAMLMKLIB=ocamlfind ocamlmklib
+ OCAMLFIND=ocamlfind
+ INSTALL_DATA=install -m 644
+ INSTALL_DLL=install
+--- a/toplevel/Makefile	2022-10-01 12:18:39.000000000 -0700
++++ b/toplevel/Makefile	2022-10-01 12:22:06.000000000 -0700
+@@ -1,5 +1,5 @@
+-OCAMLC=ocamlc
+-OCAMLDEP=ocamldep
++OCAMLC=ocamlfind ocamlc
++OCAMLDEP=ocamlfind ocamldep
+ OCAMLFIND=ocamlfind
+
+ CAMLCFLAGS=-I ../src -I +compiler-libs \
