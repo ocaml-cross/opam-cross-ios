@@ -1,0 +1,11 @@
+--- a/src/dune	2022-10-02 19:44:53.000000000 -0700
++++ b/src/dune	2022-10-02 19:55:09.000000000 -0700
+@@ -24,8 +24,3 @@
+   (c_flags (-Werror))))
+
+ (include_subdirs unqualified)
+-
+-(rule
+- (targets cflags.sexp cflags_optimized.sexp)
+- (action
+-  (run ../config/cfg.exe)))
