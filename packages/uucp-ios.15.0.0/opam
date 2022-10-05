@@ -23,10 +23,10 @@ depends: [
   "ocamlbuild" {build}
   "topkg" {build & >= "1.0.3"}
 ]
-depopts: ["uutf" "uunf" "cmdliner"]
+depopts: ["uutf-ios" "uunf-ios" "cmdliner-ios"]
 conflicts: [
-  "uutf" {< "1.0.1"}
-  "cmdliner" {< "1.1.0"}
+  "uutf-ios" {< "1.0.1"}
+  "cmdliner-ios" {< "1.1.0"}
 ]
 
 build: [

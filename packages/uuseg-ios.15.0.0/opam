@@ -33,10 +33,10 @@ depends: [
   "topkg" {build & >= "1.0.3"}
   "uucp-ios" {>= "15.0.0" & < "16.0.0"}
 ]
-depopts: ["uutf" "cmdliner"]
+depopts: ["uutf-ios" "cmdliner-ios"]
 conflicts: [
-  "uutf" {< "1.0.0"}
-  "cmdliner" {< "1.1.0"}
+  "uutf-ios" {< "1.0.0"}
+  "cmdliner-ios" {< "1.1.0"}
 ]
 
 build: [
