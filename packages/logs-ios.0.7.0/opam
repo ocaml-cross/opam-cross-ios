@@ -12,12 +12,13 @@ depends: [
   "ocamlfind" {build}
   "ocamlbuild" {build}
   "topkg" {build}
-  "opam-installer" {build} ]
+  "opam-installer" {build}
+]
 depopts: [
   "js_of_ocaml"
-  "fmt"
-  "cmdliner"
-  "lwt"
+  "fmt-ios"
+  "cmdliner-ios"
+  "lwt-ios"
   "base-threads"
 ]
 conflicts: [

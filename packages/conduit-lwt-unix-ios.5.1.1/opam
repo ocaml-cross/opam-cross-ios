@@ -19,7 +19,11 @@ depends: [
   "ipaddr-sexp-ios"
   "ca-certs-ios"
 ]
-depopts: ["tls" "lwt_ssl" "launchd"]
+depopts: [
+  "tls-ios"
+  "lwt_ssl-ios"
+  "launchd-ios"
+]
 conflicts: [
   "tls" {< "0.14.0"}
   "ssl" {< "0.5.9"}

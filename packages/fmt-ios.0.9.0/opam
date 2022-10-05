@@ -13,8 +13,8 @@ depends: ["ocaml-ios" {>= "4.08.0"}
           "ocamlbuild" {build}
           "topkg" {build & >= "1.0.3"}]
 depopts: ["base-unix"
-          "cmdliner"]
-conflicts: ["cmdliner" {< "0.9.8"}]
+          "cmdliner-ios"]
+conflicts: ["cmdliner-ios" {< "0.9.8"}]
 build: [["ocaml" "pkg/pkg.ml" "build" "--dev-pkg" "%{dev}%"
           "--with-base-unix" "true"
           "--with-cmdliner" "%{cmdliner-ios:installed}%"
