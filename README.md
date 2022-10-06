@@ -3,7 +3,7 @@ opam-cross-ios
 
 This Opam 2.0 repository contains an up-to-date iOS toolchain featuring OCaml 4.14.0 (and 4.07.1, 4.04.0), as well as some commonly used packages.
 
-The supported build systems is OS X 10.9 and later. The supported target systems are 32-bit and 64-bit x86 iPhone simulator and ARM iPhone.
+The supported build systems is OS X 10.9 and later. The supported target systems are 32-bit and 64-bit x86 iPhone simulator, ARM iPhone, and Mac Catalyst.
 
 Installation
 ------------
@@ -41,6 +41,11 @@ Configure the compiler for 32-bit ARM:
 
     ARCH=amd64 SUBARCH=x86_64 PLATFORM=iPhoneSimulator SDK=9.3 VER=8.0 \
       opam install conf-ios
+
+... for Mac Catalyst:
+
+    opam install conf-maccatalyst
+    ARCH=amd64 SUBARCH=x86_64 PLATFORM=MacOSX SDK=12.3 VER=15.0 opam install conf-ios
 
 Some options can be further tweaked:
 
