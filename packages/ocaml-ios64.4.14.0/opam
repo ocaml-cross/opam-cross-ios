@@ -4,6 +4,9 @@ substs: [
   "Makefile.cross"
   "ios.conf"
 ]
+patches: [
+  "patches/systhreads.patch"
+]
 build: [
   ["/bin/sh" "./build.sh" "x86_64-apple-darwin"]
 ]
