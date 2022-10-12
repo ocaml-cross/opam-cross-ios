@@ -2,7 +2,8 @@
 +++ b/src/dune	2022-09-28 18:42:03.000000000 -0700
 @@ -6,7 +6,3 @@
      (flags (:standard) (:include c_flags.sexp) -O2 -fPIC -DPIC))
-   (c_library_flags (:include c_library_flags.sexp) -lpthread)
+-  (c_library_flags (:include c_library_flags.sexp) -lpthread)
++  (c_library_flags (:include c_library_flags.sexp))
  )
 -
 -(rule
