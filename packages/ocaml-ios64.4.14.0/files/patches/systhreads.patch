@@ -1,0 +1,34 @@
+--- a/otherlibs/systhreads/Makefile	2022-10-05 19:05:20.000000000 -0700
++++ b/otherlibs/systhreads/Makefile	2022-10-12 08:58:58.000000000 -0700
+@@ -66,27 +66,25 @@
+ allopt: lib$(LIBNAME)nat.$(A) $(LIBNAME).cmxa $(CMIFILES)
+
+ lib$(LIBNAME).$(A): $(BYTECODE_C_OBJS)
+-	$(MKLIB_CMD) -o $(LIBNAME) $(BYTECODE_C_OBJS) $(PTHREAD_LIBS)
++	$(MKLIB_CMD) -o $(LIBNAME) $(BYTECODE_C_OBJS)
+
+ lib$(LIBNAME)nat.$(A): $(NATIVECODE_C_OBJS)
+ 	$(MKLIB_CMD) -o $(LIBNAME)nat $^
+
+ $(LIBNAME).cma: $(THREADS_BCOBJS)
+ ifeq "$(UNIX_OR_WIN32)" "unix"
+-	$(MKLIB) -o $(LIBNAME) -ocamlc '$(CAMLC)' -cclib -lunix -linkall \
+-	  $(PTHREAD_CAML_LIBS) $^
++	$(MKLIB) -o $(LIBNAME) -ocamlc '$(CAMLC)' -cclib -lunix -linkall $^
+ # TODO: Figure out why -cclib -lunix is used here.
+ # It may be because of the threadsUnix module which is deprecated.
+ # It may hence be good to figure out whether this module shouldn't be
+ # removed, and then -cclib -lunix arguments.
+ else # Windows
+-	$(MKLIB) -o $(LIBNAME) -ocamlc "$(CAMLC)" -linkall \
+-	  $(PTHREAD_CAML_LIBS) $^
++	$(MKLIB) -o $(LIBNAME) -ocamlc "$(CAMLC)" -linkall $^
+ endif
+
+ # See remark above: force static linking of libthreadsnat.a
+ $(LIBNAME).cmxa: $(THREADS_NCOBJS)
+-	$(CAMLOPT) -linkall -a -cclib -lthreadsnat $(PTHREAD_CAML_LIBS) -o $@ $^
++	$(CAMLOPT) -linkall -a -cclib -lthreadsnat -o $@ $^
+
+ # Note: I removed "-cclib -lunix" from the line above.
+ # Indeed, if we link threads.cmxa, then we must also link unix.cmxa,
