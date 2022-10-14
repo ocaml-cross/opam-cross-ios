@@ -1,0 +1,22 @@
+--- a/runtime/sys.c	2022-10-13 09:44:54.000000000 -0700
++++ b/runtime/sys.c	2022-10-13 12:02:36.000000000 -0700
+@@ -46,7 +46,7 @@
+ #include <sys/time.h>
+ #endif
+ #ifdef __APPLE__
+-#include <sys/random.h> /* for getentropy */
++#include <Security/SecRandom.h>
+ #endif
+ #include "caml/alloc.h"
+ #include "caml/debugger.h"
+@@ -599,8 +599,8 @@
+   int nread = 0;
+
+   /* Try kernel entropy first */
+-#if defined(HAS_GETENTROPY) || defined(__APPLE__)
+-  if (getentropy(buffer, 12) != -1) {
++#if defined(__APPLE__)
++  if (SecRandomCopyBytes(kSecRandomDefault, 12, buffer) == errSecSuccess) {
+     nread = 12;
+   } else
+ #endif
