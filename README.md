@@ -1,51 +1,51 @@
 opam-cross-ios
 ==============
 
-This Opam 2.0 repository contains an up-to-date iOS toolchain featuring OCaml 4.14.0 (as well as 5.0.0~beta1, 4.07.1, 4.04.0) and some commonly used packages.
+This OPAM 2.0 repository contains an up-to-date iOS toolchain featuring OCaml 4.14.0 (as well as 5.0.0~beta1, 4.07.1, 4.04.0) and some commonly used packages.
 
 The supported build system is macOS 10.9 and later. The supported target systems are 32-bit and 64-bit x86 iOS simulator, ARM iOS devices, and Mac Catalyst.
 
 Installation
 ------------
 
-Add this repository to OPAM:
-
-    opam repository add ios git://github.com/dboris/opam-cross-ios
-
-Switch to 32-bit compiler when compiling for 32-bit targets (only supported in Ocaml 4.04.0):
-
-    opam switch 4.04.0+32bit
-    eval `opam config env`
-
-Otherwise, use a regular compiler; its version must match the version of the cross-compiler:
+For 64-bit ios device and simulator cross-compiling, switch to a regular OCaml compiler. Its version must match the version of the cross-compiler:
 
     opam switch 4.14.0
     eval `opam config env`
 
-Configure the compiler for 32-bit ARM:
+Add this repository to OPAM:
 
-    ARCH=arm SUBARCH=armv7s PLATFORM=iPhoneOS SDK=15.5 VER=12.0 \
+    opam repository add ios git://github.com/dboris/opam-cross-ios
+
+Configure the compiler for 64-bit ARM device:
+
+    ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneOS SDK=$(xcrun --sdk iphoneos --show-sdk-version) VER=12.0 \
       opam install conf-ios
 
-... for 64-bit ARM
+or for the ios simulator:
 
-    ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneOS SDK=15.5 VER=12.0 \
+    ARCH=amd64 SUBARCH=x86_64 PLATFORM=iPhoneSimulator SDK=$(xcrun --sdk iphonesimulator --show-sdk-version) VER=12.0 \
+      opam install conf-ios
+
+or for Mac Catalyst:
+
+    opam install conf-maccatalyst
+    ARCH=amd64 SUBARCH=x86_64 PLATFORM=MacOSX SDK=12.3 VER=15.0 opam install conf-ios
+
+32-bit ios device cross-compiling is only supported in OCaml 4.04.0. Switch to a 32-bit compiler when compiling for 32-bit targets:
+
+    opam switch 4.04.0+32bit
+    eval `opam config env`
+
+Configure the compiler for 32-bit ARM:
+
+    ARCH=arm SUBARCH=armv7s PLATFORM=iPhoneOS SDK=$(xcrun --sdk iphoneos --show-sdk-version) VER=9.0 \
       opam install conf-ios
 
 ... for 32-bit x86:
 
-    ARCH=i386 SUBARCH=i386 PLATFORM=iPhoneSimulator SDK=15.5 VER=12.0 \
+    ARCH=i386 SUBARCH=i386 PLATFORM=iPhoneSimulator SDK=16.0 VER=12.0 \
       opam install conf-ios
-
-... for 64-bit x86:
-
-    ARCH=amd64 SUBARCH=x86_64 PLATFORM=iPhoneSimulator SDK=15.5 VER=12.0 \
-      opam install conf-ios
-
-... for Mac Catalyst:
-
-    opam install conf-maccatalyst
-    ARCH=amd64 SUBARCH=x86_64 PLATFORM=MacOSX SDK=12.3 VER=15.0 opam install conf-ios
 
 Some options can be further tweaked:
 
