@@ -1,0 +1,27 @@
+opam-version: "2.0"
+name: "xcodegen"
+version: "2.32.0"
+synopsis: "A command line tool for generating Xcode projects"
+description: """
+XcodeGen is a command line tool that generates an Xcode project 
+using your folder structure and a project spec.
+"""
+maintainer: "Yonas Kolb"
+authors: "Yonas Kolb"
+license: "MIT"
+homepage: "https://github.com/yonaskolb/XcodeGen"
+bug-reports: "git+https://github.com/yonaskolb/XcodeGen"
+dev-repo: "git+https://github.com/yonaskolb/XcodeGen"
+available: os = "macos"
+install: [
+  ["cp" "bin/xcodegen" bin]
+  ["cp" "-R" "share/xcodegen" share]
+]
+remove: [
+  ["rm" "%{bin}%/xcodegen"]
+  ["rm" "-rf" "%{share}%/xcodegen"]
+]
+url {
+  src: "https://github.com/dboris/xcodegen-tarball/raw/master/xcodegen-2.32.0.tar.gz"
+  checksum: "md5=827dcec21a7843d309cf7f3f2ae832f5"
+}
