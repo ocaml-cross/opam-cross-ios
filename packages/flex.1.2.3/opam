@@ -1,0 +1,30 @@
+opam-version: "2.0"
+synopsis:
+  "Implementation CSS layout using pure Reason - powered by css-layout project"
+maintainer: ["Jordan Walke <jordojw@gmail.com>"]
+authors: ["Jordan Walke <jordojw@gmail.com>"]
+homepage: "https://github.com/jordwalke/flex"
+bug-reports: "https://github.com/jordwalke/flex/issues"
+depends: [
+  "dune" {>= "2.0"}
+  "ocaml" {>= "4.06.1" & < "5.0.0"}
+  "reason" {>= "3.0.0" & < "4.0.0"}
+]
+build: [
+  ["dune" "subst"] {pinned}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]
+url {
+  src: "https://github.com/dboris/flex/archive/refs/tags/v1.2.3.tar.gz"
+  checksum: "md5=dfd4bf7db6c6fe4375cc4dcb3a06ac9a"
+}
