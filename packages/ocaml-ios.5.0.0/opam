@@ -2,6 +2,6 @@ opam-version: "2.0"
 maintainer: "Boris D. <borisd@gmx.com>"
 depends: [
   "ocaml"
-  "ocaml-ios64" {= "5.0.0~beta1"}
+  "ocaml-ios64" {= "5.0.0"}
 ]
 synopsis: "A meta-package depending on any OCaml cross-compiler"

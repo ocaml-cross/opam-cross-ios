@@ -32,6 +32,6 @@ depends: [
 available: arch = "x86_64"
 synopsis: "OCaml cross-compiler for 64-bit x86 and ARM iOS targets"
 url {
-    src: "https://github.com/ocaml/ocaml/archive/5.0.0-beta1.tar.gz"
-    checksum: "sha256=75329f3cfcc4091cac8f35998ad946ecfc400d43f34119fb7c8b558d13e4633f"
+    src: "https://github.com/ocaml/ocaml/archive/5.0.0.tar.gz"
+    checksum: "sha256=72fa3d0ba19b82fcb9e6c62e0090b9d22e5905c4be0f94faf56904a9377a9e5b"
 }
