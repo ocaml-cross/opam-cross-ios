@@ -1,7 +1,7 @@
 opam-cross-ios
 ==============
 
-This OPAM 2.0 repository contains an up-to-date iOS toolchain featuring OCaml 4.14.0 (as well as 5.0.0~beta1, 4.07.1, 4.04.0) and some commonly used packages.
+This OPAM 2.0 repository contains an up-to-date iOS toolchain featuring OCaml 4.14.0 and 5.0.0 (as well as 4.07.1, 4.04.0) and some commonly used packages.
 
 The supported build system is macOS 10.9 and later. The supported target systems are 32-bit and 64-bit x86 iOS simulator, ARM iOS devices, and Mac Catalyst.
 
