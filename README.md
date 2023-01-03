@@ -15,7 +15,7 @@ For 64-bit ios device and simulator cross-compiling, switch to a regular OCaml c
 
 Add this repository to OPAM:
 
-    opam repository add ios git://github.com/dboris/opam-cross-ios
+    opam repository add ios git://github.com/ocaml-cross/opam-cross-ios
 
 Configure the compiler for 64-bit ARM device:
 
