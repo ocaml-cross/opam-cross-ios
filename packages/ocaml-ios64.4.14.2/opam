@@ -1,0 +1,26 @@
+opam-version: "2.0"
+maintainer: "Boris D. <borisd@gmx.com>"
+substs: [
+  "Makefile.cross"
+  "ios.conf"
+]
+build: [
+  ["/bin/sh" "./build.sh" "x86_64-apple-darwin"]
+]
+install: [
+  ["/bin/sh" "./install.sh" "%{prefix}%"]
+]
+remove: [
+  ["/bin/sh" "./remove.sh" "%{prefix}%"]
+]
+depends: [
+  "ocaml" {= "4.14.2"}
+  "ocamlfind" {>= "1.5.4"}
+  "conf-ios"
+]
+available: arch = "x86_64"
+synopsis: "OCaml cross-compiler for 64-bit x86 and ARM iOS targets"
+url {
+    src: "https://github.com/ocaml/ocaml/archive/4.14.2.tar.gz"
+    checksum: "md5=b28daefda803b5d5910cecf085b1451c"
+}
