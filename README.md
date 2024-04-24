@@ -30,7 +30,7 @@ or for the ios simulator:
 or for Mac Catalyst:
 
     opam install conf-maccatalyst
-    ARCH=amd64 SUBARCH=x86_64 PLATFORM=MacOSX SDK=SDK=$(xcrun --show-sdk-version) VER=15.0 opam install conf-ios
+    ARCH=amd64 SUBARCH=x86_64 PLATFORM=MacOSX SDK=$(xcrun --show-sdk-version) VER=15.0 opam install conf-ios
 
 32-bit ios device cross-compiling is only supported in OCaml 4.04.0. Switch to a 32-bit compiler when compiling for 32-bit targets:
 
