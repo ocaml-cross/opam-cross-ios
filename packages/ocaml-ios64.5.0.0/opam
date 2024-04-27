@@ -8,7 +8,7 @@ patches: [
   "sys.patch"
 ]
 build: [
-  ["/bin/sh" "./build.sh" "x86_64-apple-darwin"]
+  ["/bin/sh" "./build.sh" "%{arch}%-apple-darwin"]
 ]
 install: [
   ["/bin/sh" "./install.sh" "%{prefix}%"]
@@ -29,7 +29,7 @@ depends: [
   "ocamlfind" {>= "1.5.4"}
   "conf-ios"
 ]
-available: arch = "x86_64"
+available: os = "macos"
 synopsis: "OCaml cross-compiler for 64-bit x86 and ARM iOS targets"
 url {
     src: "https://github.com/ocaml/ocaml/archive/5.0.0.tar.gz"
