@@ -24,6 +24,7 @@ Configure the compiler for 64-bit ARM device:
 
 or for the ios simulator:
 
+    opam install conf-simulator-ios
     ARCH=amd64 SUBARCH=x86_64 PLATFORM=iPhoneSimulator SDK=$(xcrun --sdk iphonesimulator --show-sdk-version) VER=12.0 \
       opam install conf-ios
 
