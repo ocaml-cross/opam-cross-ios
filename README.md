@@ -1,14 +1,14 @@
 opam-cross-ios
 ==============
 
-This OPAM 2.0 repository contains an up-to-date iOS toolchain featuring OCaml 4.14.2 and 5.0.0 and some commonly used packages.
+This OPAM repository contains an up-to-date iOS toolchain featuring OCaml 4.14.2 and 5.0.0 and some commonly used packages.
 
-The supported build system is macOS 10.9 and later. The supported target systems are 64-bit x86 iOS simulator, ARM iOS devices, and Mac Catalyst.
+The supported build system is macOS 10.9 and later. The supported target systems are iOS devices, 64-bit x86 and ARM iOS simulators, and Mac Catalyst.
 
 Installation
 ------------
 
-For 64-bit ios device and simulator cross-compiling, switch to a regular OCaml compiler. Its version must match the version of the cross-compiler:
+For 64-bit iOS device and simulator cross-compiling, switch to a regular OCaml compiler. Its version must match the version of the cross-compiler:
 
     opam switch 4.14.2
     eval `opam env`
@@ -22,7 +22,13 @@ Configure the compiler for 64-bit ARM device:
     ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneOS SDK=$(xcrun --sdk iphoneos --show-sdk-version) VER=12.0 \
       opam install conf-ios
 
-or for the ios simulator:
+or for the ARM iOS simulator:
+
+    opam install conf-simulator-ios
+    ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneSimulator SDK=$(xcrun --sdk iphonesimulator --show-sdk-version) VER=12.0 \
+      opam install conf-ios
+
+or for the x86 iOS simulator:
 
     opam install conf-simulator-ios
     ARCH=amd64 SUBARCH=x86_64 PLATFORM=iPhoneSimulator SDK=$(xcrun --sdk iphonesimulator --show-sdk-version) VER=12.0 \
@@ -33,7 +39,7 @@ or for Mac Catalyst:
     opam install conf-maccatalyst
     ARCH=amd64 SUBARCH=x86_64 PLATFORM=MacOSX SDK=$(xcrun --show-sdk-version) VER=15.0 opam install conf-ios
 
-32-bit ios device cross-compiling is only supported in OCaml 4.04.0. Switch to a 32-bit compiler when compiling for 32-bit targets:
+32-bit iOS device cross-compiling is only supported in OCaml 4.04.0. Switch to a 32-bit compiler when compiling for 32-bit targets:
 
     opam switch 4.04.0+32bit
     eval `opam config env`
