@@ -6,7 +6,7 @@ build: [
   ["sh" "-c" "echo \"platform: \\\"${PLATFORM}\\\"\" >>conf-ios.config"]
   ["sh" "-c" "echo \"sdk: \\\"${SDK}\\\"\" >>conf-ios.config"]
   ["sh" "-c" "echo \"sysroot: \\\"$(xcode-select -p)/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}${SDK}.sdk\\\"\" >>conf-ios.config"]
-  ["sh" "-c" "echo \"cflags: \\\"%{conf-simulator-ios:installed?-target ${ARCH}-apple-ios${SDK}-simulator:}% -arch ${SUBARCH}%{conf-maccatalyst:installed?h:}% -isysroot $(xcode-select -p)/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}${SDK}.sdk -miphoneos-version-min=${VER} %{conf-maccatalyst:installed?-target x86_64-apple-ios${VER}-macabi -iframework $(xcrun --show-sdk-path)/System/iOSSupport/System/Library/Frameworks:}%\\\"\" >>conf-ios.config"]
+  ["sh" "-c" "echo \"cflags: \\\"%{conf-simulator-ios:installed?-target ${ARCH}-apple-ios${VER}-simulator:}% -arch ${SUBARCH}%{conf-maccatalyst:installed?h:}% -isysroot $(xcode-select -p)/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}${SDK}.sdk -miphoneos-version-min=${VER} %{conf-maccatalyst:installed?-target x86_64-apple-ios${VER}-macabi -iframework $(xcrun --show-sdk-path)/System/iOSSupport/System/Library/Frameworks:}%\\\"\" >>conf-ios.config"]
   ["sh" "-c" "echo \"ldflags: \\\"-Wl,-syslibroot,$(xcode-select -p)/Platforms/${PLATFORM}.platform/Developer/SDKs/${PLATFORM}${SDK}.sdk\\\"\" >>conf-ios.config"]
   ["sh" "-c" "echo \"triple: \\\"${SUBARCH/arm64/arm}-apple-darwin\\\"\" >>conf-ios.config"]
   ["sh" "-c" "echo \"triplereal: \\\"${SUBARCH/arm64/aarch64}-apple-darwin\\\"\" >>conf-ios.config"]
