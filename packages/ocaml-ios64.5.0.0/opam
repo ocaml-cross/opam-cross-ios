@@ -17,15 +17,7 @@ remove: [
   ["/bin/sh" "./remove.sh" "%{prefix}%"]
 ]
 depends: [
-  "ocaml" {= "5.0.0" & post}
-  "base-unix" {post}
-  "base-bigarray" {post}
-  "base-threads" {post}
-  "base-domains" {post}
-  "base-nnp" {post}
-  "ocaml-options-vanilla" {post}
-  "ocaml-option-bytecode-only" {arch != "arm64" & arch != "x86_64"}
-  "ocaml-beta" {opam-version < "2.1.0"}
+  "ocaml" {= version}
   "ocamlfind" {>= "1.5.4"}
   "conf-ios"
 ]

@@ -12,8 +12,9 @@ cp compilerlibs/ocamlcommon.cmxa compilerlibs/ocamlcommon.a \
    "${PREFIX}/ios-sysroot/lib/ocaml/compiler-libs"
 
 for pkg in bigarray bytes compiler-libs dynlink findlib graphics stdlib str threads unix; do
-  if [ -d "${PREFIX}/lib/${pkg}" ]; then
-    cp -r "${PREFIX}/lib/${pkg}" "${PREFIX}/ios-sysroot/lib/"
+  if [ -f "${PREFIX}/lib/ocaml/${pkg}/META" ]; then
+    mkdir -p "${PREFIX}/ios-sysroot/lib/${pkg}"
+    cp "${PREFIX}/lib/ocaml/${pkg}/META" "${PREFIX}/ios-sysroot/lib/${pkg}/META"
   fi
 done
 
