@@ -15,10 +15,18 @@ depends: [
   "dune" {>= "2.9"}
   "ocaml-ios" {>= "4.03.0"}
   "ctypes-ios" {= version}
+  "libffi-sys-ios"
   "dune-configurator"
 ]
+substs: [
+  "src/ctypes-foreign/c_flags"
+  "src/ctypes-foreign/c_flags.sexp"
+  "src/ctypes-foreign/c_library_flags.sexp"
+]
+patches: [
+  "patches/dune.patched"
+]
 build: [
-  ["dune" "subst"] {dev}
   [
     "dune"
     "build"

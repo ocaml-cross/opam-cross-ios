@@ -1,0 +1,11 @@
+--- a/src/ctypes-foreign/dune	2024-02-10 11:59:56.000000000 -0800
++++ b/src/ctypes-foreign/dune	2024-05-06 07:51:25.000000000 -0700
+@@ -26,8 +26,3 @@
+   (flags
+    :standard
+    (:include c_flags.sexp))))
+-
+-(rule
+- (targets c_flags c_flags.sexp c_library_flags.sexp backend.sexp)
+- (action
+-  (run ./config/discover.exe)))
