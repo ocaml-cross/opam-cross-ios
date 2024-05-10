@@ -1,0 +1,6 @@
+name="conf-simulator"
+version="1"
+description="Virtual package flagging an iOS Simulator cross environment"
+requires=""
+archive(byte) = ""
+archive(native) = ""
