@@ -1,3 +1,7 @@
 opam-version: "2.0"
 maintainer: "Boris D. <borisd@gmx.com>"
 depends: ["ocaml"]
+install: ["ocamlfind" "install" "conf-maccatalyst" "META"]
+remove: ["ocamlfind" "remove" "conf-maccatalyst"]
+flags: light-uninstall
+extra-files: ["META" "md5=1dc5adf18fa6fcfd4eb07a26ac4e465b"]

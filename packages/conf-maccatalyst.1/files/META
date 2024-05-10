@@ -1,0 +1,6 @@
+name="conf-maccatalyst"
+version="1"
+description="Virtual package flagging a Mac Catalyst cross environment"
+requires=""
+archive(byte) = ""
+archive(native) = ""
