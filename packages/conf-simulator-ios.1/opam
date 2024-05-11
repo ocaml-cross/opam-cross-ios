@@ -1,6 +1,9 @@
 opam-version: "2.0"
 maintainer: "Boris D. <borisd@gmx.com>"
-depends: ["ocaml"]
+depends: [
+  "ocaml"
+  "ocamlfind" {build}
+]
 install: ["ocamlfind" "install" "conf-simulator" "META"]
 remove: ["ocamlfind" "remove" "conf-simulator"]
 flags: light-uninstall
