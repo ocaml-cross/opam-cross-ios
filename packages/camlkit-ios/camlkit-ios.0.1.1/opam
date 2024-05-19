@@ -1,0 +1,38 @@
+opam-version: "2.0"
+version: "0.1.1"
+synopsis: "Higher-level wrappers for Cocoa APIs"
+description: "Higher-level wrappers for Cocoa APIs"
+maintainer: ["Boris D. <borisd@gmx.com>"]
+authors: ["Boris D. <borisd@gmx.com>"]
+license: "ISC"
+tags: ["objc" "cocoa" "ios"]
+homepage: "https://github.com/dboris/camlkit"
+bug-reports: "https://github.com/dboris/camlkit/issues"
+depends: [
+  "dune" {>= "3.13"}
+  "ocaml-ios"
+  "camlkit-base-ios" {= version}
+  "camlkit-gui-ios" {= version}
+  "odoc" {with-doc}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    "camlkit"
+    "-j"
+    jobs
+    "-x"
+    "ios"
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]
+dev-repo: "git+https://github.com/dboris/camlkit.git"
+url {
+  src: "https://github.com/dboris/camlkit/archive/refs/tags/v0.1.1-alpha.tar.gz"
+  checksum: "md5=34cdaca104270b20a84b03c653a70783"
+}
