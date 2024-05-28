@@ -32,6 +32,6 @@ build: [
 ]
 dev-repo: "git+https://github.com/dboris/camlkit.git"
 url {
-  src: "https://github.com/dboris/camlkit/archive/refs/tags/v0.1.1-alpha.7.tar.gz"
-  checksum: "sha256=7646d80acf2eb3f6cba6dd4448fa25e4f8df634f45c710c73a8f3365e7d79142"
+  src: "https://github.com/dboris/camlkit/archive/refs/tags/v0.1.1-alpha.8.tar.gz"
+  checksum: "sha256=dfee7a6401dc6acf7118569a111c4ad9c5c650c53f83556709f8ffa43755499a"
 }
