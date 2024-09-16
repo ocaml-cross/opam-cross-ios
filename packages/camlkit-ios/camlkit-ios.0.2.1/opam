@@ -26,9 +26,8 @@ build: [
     "ios"
   ]
 ]
-remove: [["ocamlfind" "-toolchain" "ios" "remove" "camlkit"]]
 dev-repo: "git+https://github.com/dboris/camlkit.git"
 url {
   src: "https://github.com/dboris/camlkit/archive/refs/tags/v0.2.1.tar.gz"
-  checksum: "sha256=8dce5a143bf6c4b596882c452fd6a03eac316f621d2a798da01f874ad58768a8"
+  checksum: "sha256=73e5bf2a4a6f63e0f5689b9db8a8d9c4110ce2d1ea2d2ffd66c56b49056e79ae"
 }
