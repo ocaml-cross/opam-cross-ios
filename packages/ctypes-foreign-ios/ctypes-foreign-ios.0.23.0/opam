@@ -1,0 +1,50 @@
+opam-version: "2.0"
+synopsis: "Dynamic access to foreign C libraries using Ctypes"
+description: """
+
+This installs the `ctypes-foreign` interface which
+uses `libffi` to provide dynamic access to foreign libraries."""
+maintainer: ["Jeremy Yallop <yallop@gmail.com>"]
+authors: ["Jeremy Yallop"]
+license: "MIT"
+tags: ["org:mirage"]
+homepage: "https://github.com/yallop/ocaml-ctypes"
+doc: "https://ocamllabs.github.io/ocaml-ctypes/"
+bug-reports: "https://github.com/yallop/ocaml-ctypes/issues"
+depends: [
+  "dune" {>= "2.9"}
+  "ocaml-ios" {>= "4.03.0"}
+  "ctypes-ios" {= version}
+  "libffi-sys-ios"
+  "dune-configurator"
+]
+substs: [
+  "src/ctypes-foreign/c_flags"
+  "src/ctypes-foreign/c_flags.sexp"
+  "src/ctypes-foreign/c_library_flags.sexp"
+]
+patches: [
+  "patches/dune.patched"
+]
+build: [
+  [
+    "dune"
+    "build"
+    "-p"
+    "ctypes-foreign"
+    "-x"
+    "ios"
+    "-j"
+    jobs
+    "@install"
+  ]
+]
+dev-repo: "git+https://github.com/yallop/ocaml-ctypes.git"
+url {
+  src:
+    "https://github.com/yallop/ocaml-ctypes/archive/refs/tags/0.23.0.tar.gz"
+  checksum: [
+    "sha256=cae47d815b27dd4c824a007f1145856044542fe2588d23a443ef4eefec360bf1"
+    "md5=b1af973ec9cf7867a63714e92df82f2a"
+  ]
+}

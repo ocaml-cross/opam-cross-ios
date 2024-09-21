@@ -1,0 +1,1 @@
+("%{libffi-sys-ios:ldflags}%" "-lffi")
