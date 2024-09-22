@@ -1,0 +1,32 @@
+opam-version: "2.0"
+synopsis: "OCaml bindings to the UIKit framework"
+description: "OCaml bindings to the UIKit framework"
+maintainer: ["Boris D. <borisd@gmx.com>"]
+authors: ["Boris D. <borisd@gmx.com>"]
+license: "ISC"
+tags: ["objc" "bindings" "cocoa" "ios"]
+homepage: "https://github.com/dboris/camlkit"
+bug-reports: "https://github.com/dboris/camlkit/issues"
+depends: [
+  "dune" {>= "3.13"}
+  "ocaml-ios"
+  "camlkit-base-ios" {= version}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    "camlkit-gui"
+    "-j"
+    jobs
+    "-x"
+    "ios"
+  ]
+]
+dev-repo: "git+https://github.com/dboris/camlkit.git"
+url {
+  src: "https://github.com/dboris/camlkit/archive/refs/tags/v0.2.2.tar.gz"
+  checksum: "sha256=55f2eb2e1815c3ec80d364e4d47f6e8d95e2af3ee6b7cc5ab864aca11c6aec08"
+}
