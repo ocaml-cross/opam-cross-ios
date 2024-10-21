@@ -22,19 +22,24 @@ Configure the compiler for 64-bit ARM device:
     ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneOS SDK=$(xcrun --sdk iphoneos --show-sdk-version) VER=15.0 \
       opam install conf-ios
 
-or for the ARM iOS simulator:
+or for ARM iOS simulator:
 
     opam install conf-simulator-ios
     ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneSimulator SDK=$(xcrun --sdk iphonesimulator --show-sdk-version) VER=15.0 \
       opam install conf-ios
 
-or for the x86 iOS simulator:
+or for x86 iOS simulator:
 
     opam install conf-simulator-ios
     ARCH=amd64 SUBARCH=x86_64 PLATFORM=iPhoneSimulator SDK=$(xcrun --sdk iphonesimulator --show-sdk-version) VER=15.0 \
       opam install conf-ios
 
-or for Mac Catalyst:
+or for ARM Mac Catalyst:
+
+    opam install conf-maccatalyst
+    ARCH=arm64 SUBARCH=arm64 PLATFORM=MacOSX SDK=$(xcrun --show-sdk-version) VER=15.0 opam install conf-ios
+
+or for x86 Mac Catalyst:
 
     opam install conf-maccatalyst
     ARCH=amd64 SUBARCH=x86_64 PLATFORM=MacOSX SDK=$(xcrun --show-sdk-version) VER=15.0 opam install conf-ios
