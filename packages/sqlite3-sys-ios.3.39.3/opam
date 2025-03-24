@@ -24,3 +24,6 @@ url {
   src: "https://sqlite.org/2022/sqlite-autoconf-3390300.tar.gz"
   checksum: "md5=b77730d5c2f8c85b223d1959d08b6514"
 }
+extra-files: [
+  "sqlite3-sys-ios.config.in" "md5=cb60abfe36a099d024b0364bed174269"
+]

@@ -61,3 +61,13 @@ url {
     "sha512=698875bd3bfcd5baa47eb48e412f442d289f9972421321541860ebe110b9af1949c3fbc253768495726ec547fe4ba25483cd97ff39bc668496fba95b2ed9edd8"
   ]
 }
+extra-files: [
+  ["patches/dune.patch" "md5=f787c94321b20fcedf80a8663c3a3dc6"]
+  ["src/unix/lwt_features.h" "md5=8eafee6698c6c2343f5b89d8407b210c"]
+  ["src/unix/lwt_features.ml" "md5=dc9daf22a7c815a816889f4d5ef5c481"]
+  ["src/unix/unix_c_flags.sexp.in" "md5=c13acf4730edad111555215be339df8e"]
+  [
+    "src/unix/unix_c_library_flags.sexp.in"
+    "md5=ee36ab16ed2c634844edf2d1bc29ac88"
+  ]
+]

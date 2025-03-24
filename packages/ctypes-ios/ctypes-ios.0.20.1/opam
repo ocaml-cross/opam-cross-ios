@@ -58,3 +58,4 @@ url {
 conflicts: [
   "mirage-xen" {>= "6.0.0"}
 ]
+extra-files: ["libffi.config.in" "md5=ad420c678e08e75214e091ce83c60ce4"]

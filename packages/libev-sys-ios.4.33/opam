@@ -21,3 +21,6 @@ url {
   src: "http://dist.schmorp.de/libev/libev-4.33.tar.gz"
   checksum: "md5=a3433f23583167081bf4acdd5b01b34f"
 }
+extra-files: [
+  "libev-sys-ios.config.in" "md5=a02d9e3f2015c277b8e2f468c72d9567"
+]

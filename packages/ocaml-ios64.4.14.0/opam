@@ -27,3 +27,13 @@ url {
     src: "https://github.com/ocaml/ocaml/archive/4.14.0.tar.gz"
     checksum: "md5=32cfb000312c9d0e2c187e891c34e8d3"
 }
+extra-files: [
+  ["Makefile.cross.in" "md5=8a3d2ef571ea5d8783d3d0f4153d4635"]
+  ["build.sh" "md5=956676063b3f95706929923800b3abaa"]
+  ["install.sh" "md5=e904f31f390b5f2a4588bd63070c2abd"]
+  ["ios.conf.in" "md5=52c667a467d307094d2eba884d408c96"]
+  ["m-ios.h" "md5=e0f6ad680d37174525de289fc2d4e91a"]
+  ["patches/systhreads.patch" "md5=f307d35579ff052b81a5a4a40c20b532"]
+  ["remove.sh" "md5=d8660f646b5a3155094e68d25ef00ff9"]
+  ["s-ios.h" "md5=8a72ae6f1dbeedbdf4b9844d833afbb7"]
+]

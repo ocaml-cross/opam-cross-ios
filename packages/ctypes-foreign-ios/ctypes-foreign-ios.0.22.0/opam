@@ -44,3 +44,16 @@ url {
   src: "https://github.com/yallop/ocaml-ctypes/archive/refs/tags/0.22.0.tar.gz"
   checksum: "md5=8a301a3e3b79156448a6659859ad506c"
 }
+extra-files: [
+  ["patches/dune.patched" "md5=45ea92fca4613849c2b6de6e22c36134"]
+  ["src/ctypes-foreign/backend.sexp" "md5=4913a9178621eadcdf191db17915fbcb"]
+  ["src/ctypes-foreign/c_flags.in" "md5=f782b02496eaad9c2bc911a17d8c5a08"]
+  [
+    "src/ctypes-foreign/c_flags.sexp.in"
+    "md5=d9eb6243fffda28b3baa767ec846bd69"
+  ]
+  [
+    "src/ctypes-foreign/c_library_flags.sexp.in"
+    "md5=cbfaeb15da92efb041581c8bbde64105"
+  ]
+]

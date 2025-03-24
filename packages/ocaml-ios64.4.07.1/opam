@@ -29,3 +29,13 @@ url {
     src: "https://github.com/ocaml/ocaml/archive/4.07.1.tar.gz"
     checksum: "md5=352fe8d46cb238a26aa10c38bad6ecb6"
 }
+extra-files: [
+  ["byterun/caml/m.h" "md5=d7347c0ebdd33113913c0ee61c7d8f00"]
+  ["byterun/caml/s.h" "md5=a6073d22d6b9283d3d6cd55303aa2c1e"]
+  ["config/Makefile.in" "md5=5e2ea9a1f09d9dabd0636416bd68d0c6"]
+  ["install.sh" "md5=d62139d0987b9684895591fe2eaf2f8b"]
+  ["ios.conf.in" "md5=52c667a467d307094d2eba884d408c96"]
+  ["patches/ios.patch" "md5=2601711c7d1dcb35ea2aaad93aa069b7"]
+  ["patches/system.patch" "md5=be1caec463238ad9209e8505704ff366"]
+  ["remove.sh" "md5=d8660f646b5a3155094e68d25ef00ff9"]
+]

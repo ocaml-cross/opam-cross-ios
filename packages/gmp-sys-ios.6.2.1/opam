@@ -21,3 +21,4 @@ url {
   src: "https://github.com/dboris/gmp-tarball/raw/master/gmp-6.2.1.tar.gz"
   checksum: "md5=bb7c1d1e9c7f6350ee0b7bd2f5fd3835"
 }
+extra-files: ["gmp-sys-ios.config.in" "md5=0a30389e87401752dd4d4c4af82bb92d"]

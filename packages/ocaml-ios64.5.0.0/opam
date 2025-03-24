@@ -27,3 +27,13 @@ url {
     src: "https://github.com/ocaml/ocaml/archive/5.0.0.tar.gz"
     checksum: "sha256=72fa3d0ba19b82fcb9e6c62e0090b9d22e5905c4be0f94faf56904a9377a9e5b"
 }
+extra-files: [
+  ["Makefile.cross.in" "md5=4f003f3269651f2e466d3ef0b8b0e46c"]
+  ["build.sh" "md5=8189cae493cf203c48e16edd9ecd79a5"]
+  ["install.sh" "md5=c580491f5ffbaa08e5aed8c126e000b0"]
+  ["ios.conf.in" "md5=52c667a467d307094d2eba884d408c96"]
+  ["m-ios.h" "md5=b3491a9cbe33a0ae66fafb6e21d10a50"]
+  ["remove.sh" "md5=d8660f646b5a3155094e68d25ef00ff9"]
+  ["s-ios.h" "md5=755dd200b61a8c44621e0b43973d6065"]
+  ["sys.patch" "md5=9a4afd84bf8b488fe3afec1f2d2dd3a4"]
+]

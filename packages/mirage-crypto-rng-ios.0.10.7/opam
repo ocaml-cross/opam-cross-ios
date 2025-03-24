@@ -42,3 +42,9 @@ url {
   ]
 }
 x-commit-hash: "d3e519f93d2d9df1fb366aaf96996803518c8597"
+extra-files: [
+  ["patches/dune.patch" "md5=d4f7847a07112ef1e93476d2116a3059"]
+  ["patches/fix-random.patch" "md5=67c6411835de561fe742d74b02ce034d"]
+  ["src/cflags.sexp" "md5=5320df2aa9ad744243d825924ddc2c92"]
+  ["src/cflags_optimized.sexp" "md5=00d5d42f3b70e8455f16a81ef831de8b"]
+]

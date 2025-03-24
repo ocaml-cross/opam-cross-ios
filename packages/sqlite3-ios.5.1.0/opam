@@ -44,3 +44,8 @@ url {
     "sha512=a5e3070f95ccfaffd51de7081d55a204a24d3d277a87fab985a0418e5dd1478ed0462ebaa4dbd4a8bbaf75edd1e216300601d033a7cf8ab2a8ed3b88bbcb9e64"
   ]
 }
+extra-files: [
+  ["patches/dune.patch" "md5=18e127abd2801c376907d967a9c96400"]
+  ["src/c_flags.sexp" "md5=dbab79dec8d12a53f6a6fee480e82f07"]
+  ["src/c_library_flags.sexp.in" "md5=20ac37b6e3142a859a987c106f41f760"]
+]
