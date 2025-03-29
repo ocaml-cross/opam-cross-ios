@@ -1,0 +1,90 @@
+#!/bin/bash
+
+# Use environment variable VER if set, otherwise default to 15.0
+MIN_VERSION="${VER:-15.0}"
+
+script_name=$(basename "$0")
+
+case "$script_name" in
+    aarch64-apple-darwin.ios-gcc)
+        TOOLCHAIN_CMD=$(xcrun --sdk iphoneos --find clang)
+        TARGET="arm64-apple-ios$MIN_VERSION"
+        SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK"
+        ;;
+    aarch64-apple-darwin.ios-ld)
+        TOOLCHAIN_CMD=$(xcrun --sdk iphoneos --find clang)
+        TARGET="arm64-apple-ios$MIN_VERSION"
+        SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK -Wl,-ios_version_min,$MIN_VERSION"
+        ;;
+    aarch64-apple-darwin.simulator-gcc)
+        TOOLCHAIN_CMD=$(xcrun --sdk iphonesimulator --find clang)
+        TARGET="arm64-apple-ios$MIN_VERSION-simulator"
+        SDK=$(xcrun --sdk iphonesimulator --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK"
+        ;;
+    aarch64-apple-darwin.simulator-ld)
+        TOOLCHAIN_CMD=$(xcrun --sdk iphonesimulator --find clang)
+        TARGET="arm64-apple-ios$MIN_VERSION-simulator"
+        SDK=$(xcrun --sdk iphonesimulator --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK -Wl,-ios_version_min,$MIN_VERSION"
+        ;;
+    aarch64-apple-darwin.catalyst-gcc)
+        TOOLCHAIN_CMD=$(xcrun --sdk macosx --find clang)
+        TARGET="arm64-apple-ios$MIN_VERSION-macabi"
+        SDK=$(xcrun --sdk macosx --show-sdk-path)
+        FRAMEWORK_PATH=$(xcrun --show-sdk-path)/System/iOSSupport/System/Library/Frameworks
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK -iframework $FRAMEWORK_PATH"
+        ;;
+    aarch64-apple-darwin.catalyst-ld)
+        TOOLCHAIN_CMD=$(xcrun --sdk macosx --find clang)
+        TARGET="arm64-apple-ios$MIN_VERSION-macabi"
+        SDK=$(xcrun --sdk macosx --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK -Wl,-ios_version_min,$MIN_VERSION"
+        ;;
+    x86_64-apple-darwin.ios-gcc)
+        TOOLCHAIN_CMD=$(xcrun --sdk iphoneos --find clang)
+        TARGET="x86_64-apple-ios$MIN_VERSION"
+        SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK"
+        ;;
+    x86_64-apple-darwin.ios-ld)
+        TOOLCHAIN_CMD=$(xcrun --sdk iphoneos --find clang)
+        TARGET="x86_64-apple-ios$MIN_VERSION"
+        SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK -Wl,-ios_version_min,$MIN_VERSION"
+        ;;
+    x86_64-apple-darwin.simulator-gcc)
+        TOOLCHAIN_CMD=$(xcrun --sdk iphonesimulator --find clang)
+        TARGET="x86_64-apple-ios$MIN_VERSION-simulator"
+        SDK=$(xcrun --sdk iphonesimulator --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK"
+        ;;
+    x86_64-apple-darwin.simulator-ld)
+        TOOLCHAIN_CMD=$(xcrun --sdk iphonesimulator --find clang)
+        TARGET="x86_64-apple-ios$MIN_VERSION-simulator"
+        SDK=$(xcrun --sdk iphonesimulator --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK -Wl,-ios_version_min,$MIN_VERSION"
+        ;;
+    x86_64-apple-darwin.catalyst-gcc)
+        TOOLCHAIN_CMD=$(xcrun --sdk macosx --find clang)
+        TARGET="x86_64-apple-ios$MIN_VERSION-macabi"
+        SDK=$(xcrun --sdk macosx --show-sdk-path)
+        FRAMEWORK_PATH=$(xcrun --show-sdk-path)/System/iOSSupport/System/Library/Frameworks
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK -iframework $FRAMEWORK_PATH"
+        ;;
+    x86_64-apple-darwin.catalyst-ld)
+        TOOLCHAIN_CMD=$(xcrun --sdk macosx --find clang)
+        TARGET="x86_64-apple-ios$MIN_VERSION-macabi"
+        SDK=$(xcrun --sdk macosx --show-sdk-path)
+        EXTRA_FLAGS="--target=$TARGET --sysroot=$SDK -Wl,-ios_version_min,$MIN_VERSION"
+        ;;
+    *)
+        echo "Unknown target: $script_name" >&2
+        exit 1
+        ;;
+esac
+
+# Toolchain command wrapper invocation
+exec $TOOLCHAIN_CMD $EXTRA_FLAGS "$@"

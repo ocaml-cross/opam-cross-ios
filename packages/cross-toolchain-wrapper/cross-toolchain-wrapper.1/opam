@@ -1,0 +1,32 @@
+opam-version: "2.0"
+synopsis: "Cross-toolchain wrapper for clang targeting iOS"
+maintainer: "Boris D. <borisd@gmx.com>"
+install: [
+  [ "cp" "aarch64-apple-darwin.ios-gcc" "%{bin}%" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/aarch64-apple-darwin.ios-ld" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/aarch64-apple-darwin.simulator-gcc" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/aarch64-apple-darwin.simulator-ld" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/aarch64-apple-darwin.catalyst-gcc" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/aarch64-apple-darwin.catalyst-ld" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/x86_64-apple-darwin.ios-gcc" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/x86_64-apple-darwin.ios-ld" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/x86_64-apple-darwin.simulator-gcc" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/x86_64-apple-darwin.simulator-ld" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/x86_64-apple-darwin.catalyst-gcc" ]
+  [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/x86_64-apple-darwin.catalyst-ld" ]
+]
+remove: [
+  [ "rm" "-f" "%{bin}%/aarch64-apple-darwin.ios-gcc" ]
+  [ "rm" "-f" "%{bin}%/aarch64-apple-darwin.ios-ld" ]
+  [ "rm" "-f" "%{bin}%/aarch64-apple-darwin.simulator-gcc" ]
+  [ "rm" "-f" "%{bin}%/aarch64-apple-darwin.simulator-ld" ]
+  [ "rm" "-f" "%{bin}%/aarch64-apple-darwin.catalyst-gcc" ]
+  [ "rm" "-f" "%{bin}%/aarch64-apple-darwin.catalyst-ld" ]
+  [ "rm" "-f" "%{bin}%/x86_64-apple-darwin.ios-gcc" ]
+  [ "rm" "-f" "%{bin}%/x86_64-apple-darwin.ios-ld" ]
+  [ "rm" "-f" "%{bin}%/x86_64-apple-darwin.simulator-gcc" ]
+  [ "rm" "-f" "%{bin}%/x86_64-apple-darwin.simulator-ld" ]
+  [ "rm" "-f" "%{bin}%/x86_64-apple-darwin.catalyst-gcc" ]
+  [ "rm" "-f" "%{bin}%/x86_64-apple-darwin.catalyst-ld" ]
+]
+extra-files: ["aarch64-apple-darwin.ios-gcc" "sha256=914a9fa591de157d6635897ba8c620946ce0b731b0c61e0768d7f831621a87d8"]

@@ -1,0 +1,1 @@
+lib_root: [ "ios.conf" { "findlib.conf.d/ios.conf" } ]
