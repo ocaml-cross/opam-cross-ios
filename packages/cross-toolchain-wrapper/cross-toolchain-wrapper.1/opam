@@ -29,4 +29,4 @@ remove: [
   [ "rm" "-f" "%{bin}%/x86_64-apple-darwin.catalyst-gcc" ]
   [ "rm" "-f" "%{bin}%/x86_64-apple-darwin.catalyst-ld" ]
 ]
-extra-files: ["aarch64-apple-darwin.ios-gcc" "sha256=914a9fa591de157d6635897ba8c620946ce0b731b0c61e0768d7f831621a87d8"]
+extra-files: ["aarch64-apple-darwin.ios-gcc" "sha256=4d9208faef492999e28788a9b8ce37aa9a948db0acd5324a66f6bc46974c8b38"]
