@@ -1,0 +1,124 @@
+opam-version: "2.0"
+license: "LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception"
+synopsis: "OCaml 5.4.0 configured for Mac Catalyst (iOS apps on macOS)"
+description: """
+This variant of OCaml 5.4.0 is configured to produce binaries and libraries
+that can be linked against Mac Catalyst frameworks, enabling the development
+of iOS-compatible applications that run on macOS.
+
+Mac Catalyst uses the target triple format:
+- arm64-apple-ios<version>-macabi (for Apple Silicon)
+- x86_64-apple-ios<version>-macabi (for Intel Macs)
+
+The minimum supported iOS version is 14.0 for ARM64 and 13.1 for x86_64.
+
+Requirements:
+- Xcode 11 or later with macOS SDK that contains System/iOSSupport headers
+"""
+maintainer: [
+  "David Allsopp <david@tarides.com>"
+  "Florian Angeletti <florian.angeletti@inria.fr>"
+]
+authors: [
+  "Xavier Leroy"
+  "Damien Doligez"
+  "Alain Frisch"
+  "Jacques Garrigue"
+  "Didier Rémy"
+  "KC Sivaramakrishnan"
+  "Jérôme Vouillon"
+]
+homepage: "https://ocaml.org"
+bug-reports: "https://github.com/ocaml/opam-repository/issues"
+dev-repo: "git+https://github.com/ocaml/ocaml.git#5.4"
+depends: [
+  "ocaml" {= "5.4.0" & post}
+  "base-unix" {post}
+  "base-bigarray" {post}
+  "base-threads" {post}
+  "base-domains" {post}
+  "base-nnp" {post}
+  "base-effects" {post}
+]
+conflict-class: "ocaml-core-compiler"
+flags: compiler
+available: os = "macos"
+setenv: CAML_LD_LIBRARY_PATH = "%{lib}%/stublibs"
+x-env-path-rewrite: [
+  [CAML_LD_LIBRARY_PATH ":" "target"]
+]
+build: [
+  ["sh" "-c"
+    """
+    MACOS_SDK=$(xcrun --sdk macosx --show-sdk-path)
+    if [ ! -d "$MACOS_SDK/System/iOSSupport" ]; then
+      echo "Error: Mac Catalyst support not found in SDK at $MACOS_SDK"
+      echo "Please ensure Xcode 11 or later is installed with macOS SDK"
+      exit 1
+    fi
+    echo "Using macOS SDK: $MACOS_SDK"
+    """
+  ]
+  ["sh" "-c"
+    """
+    MACOS_SDK=$(xcrun --sdk macosx --show-sdk-path)
+    ARCH=$(uname -m)
+    if [ "$ARCH" = "arm64" ]; then
+      CLANG_TARGET="arm64-apple-ios14.0-macabi"
+      HOST="aarch64-apple-darwin"
+    else
+      CLANG_TARGET="x86_64-apple-ios13.1-macabi"
+      HOST="x86_64-apple-darwin"
+    fi
+    CATALYST_FLAGS="-target $CLANG_TARGET -isysroot $MACOS_SDK -iframework $MACOS_SDK/System/iOSSupport/System/Library/Frameworks"
+    ./configure \
+      --prefix=%{prefix}% \
+      --docdir=%{doc}%/ocaml \
+      --host=$HOST \
+      -C \
+      CC="clang $CATALYST_FLAGS" \
+      AS="clang $CATALYST_FLAGS -c" \
+      ASPP="clang $CATALYST_FLAGS -c" \
+      LDFLAGS="$CATALYST_FLAGS" \
+      --without-zstd \
+      --disable-warn-error
+    """
+  ]
+  ["sh" "-c"
+    """
+    # Patch runtime/sys.c to use dlsym to get system() at runtime
+    cat > /tmp/sys_patch.txt << 'PATCHEOF'
+#if defined(__APPLE__) && __has_include(<TargetConditionals.h>)
+#include <TargetConditionals.h>
+#if TARGET_OS_MACCATALYST
+#include <dlfcn.h>
+static int (*get_system_func(void))(const char *) {
+  static int (*cached)(const char *) = NULL;
+  if (!cached) {
+    cached = (int (*)(const char *))dlsym(RTLD_DEFAULT, "system");
+  }
+  return cached;
+}
+#define system(x) (get_system_func())(x)
+#endif
+#endif
+PATCHEOF
+    # Insert the patch after the includes in sys.c
+    sed -i.bak '/#include "caml.osdeps.h"/r /tmp/sys_patch.txt' runtime/sys.c
+    """
+  ]
+  [make "-j%{jobs}%"]
+]
+install: [make "install"]
+url {
+  src: "https://github.com/ocaml/ocaml/releases/download/5.4.0/ocaml-5.4.0.tar.gz"
+  checksum: "sha256=6fcf1b192e389e54c4f5cb51306ab2baee2a54a25b1770366de5a8b42695996e"
+}
+extra-source "ocaml-variants.install" {
+  src:
+    "https://raw.githubusercontent.com/ocaml/ocaml/899b8f3bece45f55161dad72eaa223c2bb7202e8/ocaml-variants.install"
+  checksum: [
+    "sha256=7af3dc34e6f9f3be2ffd8d32cd64fa650d6a036c86c4821a7033d24a90fba11c"
+    "md5=781ea69255fd0cb643a9617ff56fd6ba"
+  ]
+}
