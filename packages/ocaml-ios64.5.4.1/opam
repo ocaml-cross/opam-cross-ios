@@ -100,5 +100,5 @@ extra-files: [
   ["ocaml-ios64.install" "sha256=2694eed901aa8286b90e17ab9d53234d4536b269340074a9230bf6b7156320aa"]
 ]
 x-env-path-rewrite: [
-  [CAML_LD_LIBRARY_PATH (";" {os = "win32"} ":" {os != "win32"}) "target"]
+  [CAML_LD_LIBRARY_PATH ":" "target"]
 ]

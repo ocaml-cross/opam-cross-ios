@@ -3,6 +3,7 @@ synopsis: "Cross-toolchain wrapper for clang targeting iOS"
 maintainer: "Boris D. <borisd@gmx.com>"
 install: [
   [ "cp" "aarch64-apple-darwin.ios-gcc" "%{bin}%" ]
+  [ "chmod" "+x" "%{bin}%/aarch64-apple-darwin.ios-gcc" ]
   [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/aarch64-apple-darwin.ios-ld" ]
   [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/aarch64-apple-darwin.simulator-gcc" ]
   [ "ln" "-s" "%{bin}%/aarch64-apple-darwin.ios-gcc" "%{bin}%/aarch64-apple-darwin.simulator-ld" ]
