@@ -1,16 +1,18 @@
 opam-cross-ios
 ==============
 
-This OPAM repository contains an up-to-date iOS toolchain featuring OCaml 5.3.0 and 4.14.2, and some commonly used packages.
+This OPAM repository contains an up-to-date iOS toolchain featuring OCaml 5.4.1 and 4.14.2, and some commonly used packages.
 
 The supported build system is macOS 12 and later. The supported target systems are iOS devices, 64-bit x86 and ARM iOS simulators, and Mac Catalyst.
+
+On Apple Silicon Macs, you almost certainly want the **arm64** iOS Simulator (`ARCH=arm64 SUBARCH=arm64 PLATFORM=iPhoneSimulator`), not the x86_64 one — the x86_64 simulator only runs under Rosetta and the resulting binaries can't be linked into a modern arm64 Xcode build.
 
 Installation
 ------------
 
 For 64-bit iOS device and simulator cross-compiling, switch to a regular OCaml compiler. Its version must match the version of the cross-compiler:
 
-    opam switch create <switch-name> 5.3.0
+    opam switch create <switch-name> 5.4.1
     eval $(opam env)
 
 Add this repository to OPAM:
@@ -88,6 +90,13 @@ Make an object file out of it, link `libasmrun.a` to your final executable, and 
 
     ocamlfind -toolchain ios ocamlopt -package re.pcre -linkpkg -output-complete-obj test_pcre.ml -o test_pcre.o
 
+The same `-toolchain ios` flag (or `OCAMLFIND_TOOLCHAIN=ios`) is used regardless of whether the active switch is configured for a device, simulator, or Mac Catalyst — the underlying `conf-ios` package selects the SDK and target triple. So a Mac Catalyst build of the same file looks identical:
+
+    # in a switch where conf-maccatalyst + conf-ios were installed
+    ocamlfind -toolchain ios ocamlopt -package re.pcre -linkpkg -output-complete-obj test_pcre.ml -o test_pcre.o
+
+You can verify the result with `otool -l test_pcre.o | grep -A 4 LC_BUILD_VERSION` — `platform 2` is iOS, `6` is Mac Catalyst, `7` is iOS Simulator.
+
 With opam-ios, cross-compilation is easy!
 
 Managing deployment targets
@@ -153,10 +162,14 @@ The aim of this repository is to build a cross-compiler while altering the origi
   * The build system makes several assumptions that are not strictly valid while cross-compiling, mainly the fact that the bytecode the cross-compiler has just built can be ran by the `ocamlrun` on the build system. Thus, the requirement for a 32-bit build compiler for 32-bit targets, as well as for the matching versions.
   * The `.opt` versions of the compiler are built using itself, which doesn't work while cross-compiling, so all provided tools are bytecode-based.
 
+### The cross-toolchain wrapper
+
+The OCaml cross-compiler is configured with target triples like `aarch64-apple-darwin.simulator` and `aarch64-apple-darwin.catalyst`, and invokes a `<target>-gcc` / `<target>-ld` pair to produce object code. These are not real binaries — they are shell-script shims provided by the `cross-toolchain-wrapper` package. Each shim inspects its own name (e.g. `aarch64-apple-darwin.simulator-gcc`) to pick the right `xcrun --sdk … --find clang` and prepend the matching `--target=arm64-apple-ios<VER>-simulator` and `--sysroot=…` flags before exec-ing clang. This is what lets the same OCaml build flow produce binaries for the device SDK, the simulator SDK, and Mac Catalyst from a single repository.
+
 Acknowledgements
 ----------------
 
-The OCaml cross-compiler in opam-cross-ios is based on a [patchset][psellos] by Gerd Stolpmann.
+The OCaml cross-compiler in opam-cross-ios is based on a [patchset][psellos] by Gerd Stolpmann. Cross-compiler support for OCaml 5.x is built on Samuel Hym's "Backport support for building cross compilers" patch series (squashed into `ocross-squashed.patch` in the older `ocaml-ios64` packages; OCaml 5.4 onwards ships the cross-compilation plumbing in-tree, so no patch is needed).
 
 [psellos]: psellos.com/ocaml/compile-to-iphone.html
 
