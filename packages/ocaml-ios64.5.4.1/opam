@@ -1,0 +1,104 @@
+opam-version: "2.0"
+synopsis: "OCaml 5.4.1 cross-compiler for iOS and Mac Catalyst"
+maintainer: "Boris D. <borisd@gmx.com>"
+authors: [
+  "Xavier Leroy"
+  "Damien Doligez"
+  "Alain Frisch"
+  "Jacques Garrigue"
+  "Didier Rémy"
+  "KC Sivaramakrishnan"
+  "Jérôme Vouillon"
+]
+license: "LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception"
+homepage: "https://ocaml.org"
+bug-reports: "https://github.com/ocaml/opam-repository/issues"
+available: os = "macos"
+depends: [
+  "ocaml" {= "5.4.1" & post}
+  "base-unix" {post}
+  "base-bigarray" {post}
+  "base-threads" {post}
+  "base-domains" {post}
+  "base-nnp" {post}
+  "base-effects" {post}
+  "conf-ios" {>= "4"}
+  "cross-toolchain-wrapper"
+]
+depopts: [
+  "ocaml-option-afl"
+  "ocaml-option-bytecode-only"
+  "ocaml-option-no-flat-float-array"
+  "ocaml-option-flambda"
+  "ocaml-option-fp"
+  "ocaml-option-no-compression"
+  "ocaml-option-leak-sanitizer"
+  "ocaml-option-address-sanitizer"
+  "ocaml-option-static"
+  "ocaml-option-tsan"
+  "conf-flambda-ios"
+]
+conflicts: ["relocatable"]
+setenv: CAML_LD_LIBRARY_PATH = "%{lib}%/stublibs"
+build: [
+  [ "./configure"
+    "--target=%{conf-ios:target}%"
+    "--prefix=%{prefix}%/ios-sysroot"
+    "--without-zstd"
+    "--disable-shared"
+    "--disable-function-sections"
+    "--disable-warn-error"
+    "--disable-ocamldoc"
+    "--disable-ocamltest"
+    "--disable-stdlib-manpages"
+    "--disable-dependency-generation"
+    "--with-afl" {ocaml-option-afl:installed}
+    "--disable-flat-float-array" {ocaml-option-no-flat-float-array:installed}
+    "--enable-flambda" {ocaml-option-flambda:installed | conf-flambda-ios:installed}
+    "--enable-frame-pointers" {ocaml-option-fp:installed}
+    "--enable-tsan" {ocaml-option-tsan:installed}
+    "ac_cv_func_system=no"
+    "ac_cv_func_getentropy=no"
+    "CC=%{conf-ios:target}%-gcc"
+    "LD=%{conf-ios:target}%-ld"
+    "DIRECT_LD=%{conf-ios:target}%-ld"
+  ]
+  [ make "-j%{jobs}%" "crossopt" ]
+]
+install: [
+  [ make "installcross" ]
+  [ "/bin/sh" "./install.sh" "%{prefix}%" ]
+]
+remove: [
+  [ "/bin/sh" "./remove.sh" "%{prefix}%" ]
+]
+build-env: [
+  [MSYS2_ARG_CONV_EXCL = "*"]
+  [LSAN_OPTIONS = "detect_leaks=0,exitcode=0"]
+  [ASAN_OPTIONS = "detect_leaks=0,exitcode=0"]
+]
+dev-repo: "git+https://github.com/ocaml/ocaml.git#5.4"
+url {
+  src:
+    "https://github.com/ocaml/ocaml/releases/download/5.4.1/ocaml-5.4.1.tar.gz"
+  checksum:
+    "sha256=d4528517aaa1a44b8e2b1bc109a1ed0a5e0014f3ddc4feb8906b11a7e063e89a"
+}
+extra-source "ocaml-compiler.install" {
+  src:
+    "https://raw.githubusercontent.com/ocaml/ocaml/899b8f3bece45f55161dad72eaa223c2bb7202e8/ocaml-variants.install"
+  checksum: [
+    "sha256=7af3dc34e6f9f3be2ffd8d32cd64fa650d6a036c86c4821a7033d24a90fba11c"
+    "md5=781ea69255fd0cb643a9617ff56fd6ba"
+  ]
+}
+substs: [ "ios.conf" ]
+extra-files: [
+  ["install.sh" "sha256=9f71ae56910741cc0b848f15ba9c7670ca7b930c0c34d4290389df8f84ef7642"]
+  ["remove.sh" "sha256=03397d1883862801aad8ac0d4d1671ebe6a1ce632e7629b99e3598b64a263a3e"]
+  ["ios.conf.in" "sha256=5ab9da5f1a6f14dba9937000b2446691622f7890820c0e170eb51b6f42ae0ed5"]
+  ["ocaml-ios64.install" "sha256=2694eed901aa8286b90e17ab9d53234d4536b269340074a9230bf6b7156320aa"]
+]
+x-env-path-rewrite: [
+  [CAML_LD_LIBRARY_PATH (";" {os = "win32"} ":" {os != "win32"}) "target"]
+]
