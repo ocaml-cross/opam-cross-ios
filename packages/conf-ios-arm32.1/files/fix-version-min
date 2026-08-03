@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""Rewrite LC_VERSION_MIN_IPHONEOS in a 32-bit Mach-O.
+
+Modern ld refuses -platform_version below iOS 5.0, so binaries for iPhone OS
+4.x are linked at 5.0 and stamped down afterwards. dyld of that era ignores
+the load command, but an honest value costs nothing and avoids depending on
+that leniency.
+"""
+
+import struct
+import sys
+
+MH_MAGIC = 0xFEEDFACE
+LC_VERSION_MIN_IPHONEOS = 0x25
+
+
+def encode(version):
+    parts = [int(p) for p in version.split(".")]
+    while len(parts) < 3:
+        parts.append(0)
+    major, minor, patch = parts
+    return (major << 16) | (minor << 8) | patch
+
+
+def patch(path, version, sdk):
+    with open(path, "r+b") as f:
+        data = bytearray(f.read())
+
+        magic, = struct.unpack_from("<I", data, 0)
+        if magic != MH_MAGIC:
+            sys.exit(f"{path}: not a little-endian 32-bit Mach-O")
+
+        ncmds, = struct.unpack_from("<I", data, 16)
+        offset = 28
+        for _ in range(ncmds):
+            cmd, cmdsize = struct.unpack_from("<II", data, offset)
+            if cmd == LC_VERSION_MIN_IPHONEOS:
+                struct.pack_into("<II", data, offset + 8, version, sdk)
+                f.seek(0)
+                f.write(data)
+                return True
+            offset += cmdsize
+        return False
+
+
+def main():
+    if len(sys.argv) < 2:
+        sys.exit("usage: fix-version-min <macho> [version] [sdk]")
+    version = encode(sys.argv[2] if len(sys.argv) > 2 else "4.2")
+    sdk = encode(sys.argv[3] if len(sys.argv) > 3 else "4.2")
+    for path in sys.argv[1:2]:
+        if not patch(path, version, sdk):
+            sys.exit(f"{path}: no LC_VERSION_MIN_IPHONEOS found")
+
+
+if __name__ == "__main__":
+    main()

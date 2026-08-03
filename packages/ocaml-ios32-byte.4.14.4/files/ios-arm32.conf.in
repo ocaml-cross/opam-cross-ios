@@ -1,0 +1,8 @@
+path(ios-arm32) = "%{prefix}%/ios-sysroot/lib/ocaml"
+destdir(ios-arm32) = "%{prefix}%/ios-sysroot/lib/ocaml"
+stdlib(ios-arm32) = "%{prefix}%/ios-sysroot/lib/ocaml"
+ocamlc(ios-arm32) = "%{prefix}%/ios-sysroot/bin/ocamlc"
+ocamlcp(ios-arm32) = "%{prefix}%/ios-sysroot/bin/ocamlcp"
+ocamlmklib(ios-arm32) = "%{prefix}%/ios-sysroot/bin/ocamlmklib"
+ocamlmktop(ios-arm32) = "%{prefix}%/ios-sysroot/bin/ocamlmktop"
+ocamldep(ios-arm32) = "%{prefix}%/ios-sysroot/bin/ocamldep"

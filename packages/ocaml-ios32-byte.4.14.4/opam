@@ -1,0 +1,62 @@
+opam-version: "2.0"
+maintainer: "Boris D. <borisd@gmx.com>"
+substs: ["ios-arm32.conf"]
+patches: ["patches/ios-arm32.patch"]
+build: [
+  ["/bin/sh" "./build.sh" "%{prefix}%" "%{conf-ios-arm32:cc}%"]
+]
+install: [
+  ["/bin/sh" "./install.sh" "%{prefix}%"]
+]
+remove: [
+  ["/bin/sh" "./remove.sh" "%{prefix}%"]
+]
+depends: [
+  # The cross compiler is itself bytecode and runs on the switch's ocamlrun,
+  # so the host compiler must share 4.14's bytecode and .cmi magic.
+  "ocaml" {>= "4.14.0" & < "4.15.0"}
+  "ocamlfind" {>= "1.5.4"}
+  "conf-ios-arm32"
+]
+conflicts: ["ocaml-ios32" "ocaml-ios64"]
+available: os = "macos"
+synopsis: "OCaml bytecode cross-compiler for 32-bit ARM iOS devices"
+description: """
+Builds OCaml 4.14.4 -- the last OCaml 4 release -- as a bytecode
+cross-compiler for the 32-bit ARM iOS target selected by conf-ios-arm32,
+which is where the architecture, SDK and deployment target are chosen.
+Includes unix, str and threads. Verified on an iPod touch 2G (armv6)
+running iPhone OS 4.2.1.
+
+Bytecode only. OCaml's 32-bit ARM *native* backend needed continual upkeep
+for Mach-O assembly output, which is why native 32-bit iOS support stalled
+at 4.04; none of that code is involved in a bytecode build, so this tracks
+a current release instead.
+
+Only the runtime and the C stubs are architecture-specific: a bytecode-only
+compiler reports architecture "none", so the compiler, the stdlib and the
+.cmi files would be identical whichever SUBARCH conf-ios-arm32 names.
+
+Two runtimes are installed. ios-sysroot/bin/ocamlrun is a host binary and
+runs the cross compiler itself; ios-sysroot/device/ocamlrun is the target
+one, to be copied to /usr/local/bin on the device, where bytecode
+executables produced by this compiler expect it. Because the build has no
+shared libraries, linking anything with C stubs selects -custom, producing
+a self-contained binary that needs nothing installed on the device.
+
+Do not sign -custom executables: ldid rebuilds the Mach-O from its load
+commands and discards the bytecode appended past the last segment.
+"""
+url {
+  src:
+    "https://github.com/ocaml/ocaml/releases/download/4.14.4/ocaml_4.14.4.tar.gz"
+  checksum:
+    "sha256=71415c000ebfce604defafaa584ab5ed10ad81ff180897db4e6fea8dac6e4b0d"
+}
+extra-files: [
+  ["build.sh" "md5=8b0121f7ac7983ef92fcc35460c7c0fa"]
+  ["install.sh" "md5=3d1bbf33c9de1e4c8da81bfb0da92738"]
+  ["remove.sh" "md5=2ceb07a7fe6d2e22ef346892db1e93ab"]
+  ["ios-arm32.conf.in" "md5=2de976a677c52083806fa0d8258173b8"]
+  ["patches/ios-arm32.patch" "md5=895ec7a02c03833621641601e7ef0709"]
+]

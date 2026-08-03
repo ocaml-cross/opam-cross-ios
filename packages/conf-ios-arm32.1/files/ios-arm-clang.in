@@ -1,0 +1,76 @@
+#!/bin/sh -e
+# C compiler driver for 32-bit ARM iOS devices.
+#
+# Invoked through an arch-specific name, so a build system needs only a
+# single CC value:
+#
+#   armv6-apple-darwin10-clang    iPhone, iPhone 3G, iPod touch 1G/2G
+#   armv7-apple-darwin10-clang    iPhone 3GS/4, iPad 1/2, iPod touch 3G/4G
+#   armv7s-apple-darwin10-clang   iPhone 5, iPad 4
+#
+# Only the names for architectures actually present in the configured SDK
+# are installed. The values below are filled in by setup.sh from that SDK.
+#
+# Overrides: IOS_ARM_SDK, IOS_ARM_ARCH, IOS_ARM_DEPLOYMENT_TARGET.
+
+TOOLCHAIN="$(cd "$(dirname "$0")" && pwd)"
+SDK="${IOS_ARM_SDK:-${IOS_ARMV6_SDK:-@SDK@}}"
+GCCLIB="@GCCLIB@"
+CLANG="${IOS_ARM_CLANG:-clang}"
+DEPLOY="${IOS_ARM_DEPLOYMENT_TARGET:-@DEPLOY@}"
+
+case "${IOS_ARM_ARCH:-$(basename "$0")}" in
+  armv7s*) ARCH=armv7s; CPU=swift ;;
+  armv7*)  ARCH=armv7;  CPU=cortex-a8 ;;
+  armv6*)  ARCH=armv6;  CPU=arm1176jzf-s ;;
+  *) echo "$0: cannot tell target arch from name; set IOS_ARM_ARCH" >&2
+     exit 1 ;;
+esac
+
+# Modern ld refuses to emit a deployment-target load command below this, so
+# links use it and the result is stamped back down to $DEPLOY afterwards.
+LINK_DEPLOY=5.0
+
+compile_only=no
+output=
+next_is_output=no
+for arg in "$@"; do
+  if [ "$next_is_output" = yes ]; then
+    output="$arg"
+    next_is_output=no
+    continue
+  fi
+  case "$arg" in
+    -c|-S|-E|-M|-MM|-fsyntax-only|-dM|-print-*) compile_only=yes ;;
+    -o) next_is_output=yes ;;
+  esac
+done
+
+if [ "$compile_only" = yes ]; then
+  exec "$CLANG" -target "$ARCH-apple-ios$DEPLOY" -mcpu="$CPU" \
+    -isysroot "$SDK" "$@"
+fi
+
+# ARMv6 and ARMv7 have no integer division instruction and current
+# compiler-rt has no slice for them, so the builtins come from the SDK's
+# libgcc where one exists. ARMv7s divides in hardware, and the SDKs that
+# support it ship no libgcc.
+if [ -n "$GCCLIB" ]; then
+  set -- "$@" -L"$GCCLIB" -lgcc_static
+fi
+
+# -Wl,-w silences ld's CPU_SUBTYPE_ARM_ALL notes about period libgcc objects
+# and its complaint that the modern libclang_rt it adds by default has no
+# 32-bit ARM slice. Neither affects the output.
+"$CLANG" -target "$ARCH-apple-ios$LINK_DEPLOY" -mcpu="$CPU" -isysroot "$SDK" \
+  -Wl,-w "$@"
+
+[ -n "$output" ] || output=a.out
+[ -f "$output" ] || exit 0
+
+# Only rewrite a deployment target below the linker's floor; at or above it
+# the load command ld emitted is already the requested one.
+case "$DEPLOY" in
+  [0-4].*|[0-4])
+    "$TOOLCHAIN/ios-arm32-fix-version-min" "$output" "$DEPLOY" "$DEPLOY" ;;
+esac

@@ -1,0 +1,85 @@
+diff --git a/otherlibs/unix/socketaddr.c b/otherlibs/unix/socketaddr.c
+index a724a9a4b3..717a321919 100644
+--- a/otherlibs/unix/socketaddr.c
++++ b/otherlibs/unix/socketaddr.c
+@@ -20,6 +20,17 @@
+ #include <errno.h>
+ #include "unixsupport.h"
+ 
++#if defined(__APPLE__) && defined(__IPHONE_OS_VERSION_MIN_REQUIRED) \
++    && __IPHONE_OS_VERSION_MIN_REQUIRED < 50000
++/* strnlen was added to Darwin in iOS 5 / macOS 10.7. */
++static size_t strnlen(const char *s, size_t maxlen)
++{
++  size_t n = 0;
++  while (n < maxlen && s[n] != '\0') n++;
++  return n;
++}
++#endif
++
+ #ifdef HAS_SOCKETS
+ 
+ #include "socketaddr.h"
+diff --git a/runtime/caml/config.h b/runtime/caml/config.h
+index 471a6bc6f4..bba04b8c67 100644
+--- a/runtime/caml/config.h
++++ b/runtime/caml/config.h
+@@ -162,7 +162,7 @@ typedef uint64_t uintnat;
+    float is at byte offset [a], the next lsb at [b], ..., and the
+    most significant byte at [h]. */
+ 
+-#if defined(__arm__) && !defined(__ARM_EABI__)
++#if defined(__arm__) && !defined(__ARM_EABI__) && !defined(__APPLE__)
+ #define ARCH_FLOAT_ENDIANNESS 0x45670123
+ #elif defined(ARCH_BIG_ENDIAN)
+ #define ARCH_FLOAT_ENDIANNESS 0x76543210
+diff --git a/runtime/floats.c b/runtime/floats.c
+index 7561bfba81..fe16de919d 100644
+--- a/runtime/floats.c
++++ b/runtime/floats.c
+@@ -1061,7 +1061,8 @@ CAMLprim value caml_erfc_float(value f)
+ 
+ union double_as_two_int32 {
+     double d;
+-#if defined(ARCH_BIG_ENDIAN) || (defined(__arm__) && !defined(__ARM_EABI__))
++#if defined(ARCH_BIG_ENDIAN) \
++  || (defined(__arm__) && !defined(__ARM_EABI__) && !defined(__APPLE__))
+     struct { uint32_t h; uint32_t l; } i;
+ #else
+     struct { uint32_t l; uint32_t h; } i;
+diff --git a/runtime/hash.c b/runtime/hash.c
+index f33634c227..5c2ea38ac0 100644
+--- a/runtime/hash.c
++++ b/runtime/hash.c
+@@ -90,7 +90,8 @@ CAMLexport uint32_t caml_hash_mix_double(uint32_t hash, double d)
+ {
+   union {
+     double d;
+-#if defined(ARCH_BIG_ENDIAN) || (defined(__arm__) && !defined(__ARM_EABI__))
++#if defined(ARCH_BIG_ENDIAN) \
++  || (defined(__arm__) && !defined(__ARM_EABI__) && !defined(__APPLE__))
+     struct { uint32_t h; uint32_t l; } i;
+ #else
+     struct { uint32_t l; uint32_t h; } i;
+diff --git a/runtime/ints.c b/runtime/ints.c
+index c9584e4aba..23d59be6e9 100644
+--- a/runtime/ints.c
++++ b/runtime/ints.c
+@@ -623,7 +623,7 @@ int64_t caml_int64_bits_of_float_unboxed(double d)
+ {
+   union { double d; int64_t i; int32_t h[2]; } u;
+   u.d = d;
+-#if defined(__arm__) && !defined(__ARM_EABI__)
++#if defined(__arm__) && !defined(__ARM_EABI__) && !defined(__APPLE__)
+   { int32_t t = u.h[0]; u.h[0] = u.h[1]; u.h[1] = t; }
+ #endif
+   return u.i;
+@@ -633,7 +633,7 @@ double caml_int64_float_of_bits_unboxed(int64_t i)
+ {
+   union { double d; int64_t i; int32_t h[2]; } u;
+   u.i = i;
+-#if defined(__arm__) && !defined(__ARM_EABI__)
++#if defined(__arm__) && !defined(__ARM_EABI__) && !defined(__APPLE__)
+   { int32_t t = u.h[0]; u.h[0] = u.h[1]; u.h[1] = t; }
+ #endif
+   return u.d;

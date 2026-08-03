@@ -1,0 +1,49 @@
+opam-version: "2.0"
+maintainer: "Boris D. <borisd@gmx.com>"
+build: [
+  ["sh" "./setup.sh" "%{prefix}%/bin"]
+]
+depends: ["ocaml"]
+available: os = "macos"
+synopsis: "C cross toolchain for 32-bit ARM iOS devices (armv6/armv7/armv7s)"
+description: """
+Configures a C cross toolchain for one 32-bit ARM iOS target. As with
+conf-ios, the target is chosen at install time and recorded in the package;
+reinstall it to switch to another one.
+
+  SUBARCH=armv6 SYSROOT=/path/to/iPhoneOS4.2.sdk opam install conf-ios-arm32
+
+  SUBARCH   armv6   iPhone, iPhone 3G, iPod touch 1G/2G      (required)
+            armv7   iPhone 3GS/4, iPad 1/2, iPod touch 3G/4G
+            armv7s  iPhone 5, iPad 4
+  SYSROOT   path to the SDK; or give SDK=<version> (and PLATFORM, default
+            iPhoneOS) to resolve it under xcode-select as conf-ios does
+  VER       deployment target; defaults to the SDK's own version
+
+Apple has not shipped an SDK with a 32-bit ARM slice for many years and one
+cannot be downloaded automatically, which is why SYSROOT usually has to be
+given as a path. Old SDKs are found inside the matching Xcode installer:
+"Xcode 3.2.5 and iOS SDK 4.2" carries Packages/iPhoneSDK4_2.pkg, which
+pkgutil --expand-full unpacks. SUBARCH is checked against the slices the SDK
+actually provides, since armv6 was dropped after iOS 5 and armv7s only
+arrived with iOS 6.
+
+Records arch, subarch, platform, sysroot, ver, cflags, ldflags and triple as
+conf-ios does, plus cc: a compiler driver, needed because not all of the
+workarounds below can be expressed as flags.
+
+The current Xcode toolchain still emits and links 32-bit ARM, so no
+period-era compiler is needed. Three gaps are covered. Modern ld refuses a
+deployment target below iOS 5, so binaries are linked at 5.0 and the load
+command is stamped back down afterwards when a lower target was asked for.
+Current compiler-rt has no 32-bit ARM slice, so on cores with no division
+instruction -- everything before armv7s -- the builtins come from the SDK's
+libgcc, whose path varies by SDK release and is located at configure time.
+And clang's generic per-architecture default CPU is narrowed to the part
+actually present in these devices.
+"""
+extra-files: [
+  ["setup.sh" "md5=d1620176206104ae817725c0251ebf14"]
+  ["ios-arm-clang.in" "md5=e96c6ae3106687d0e676e35b2008de89"]
+  ["fix-version-min" "md5=50ed448768c61a1d76a3cc5a2c9544d0"]
+]
