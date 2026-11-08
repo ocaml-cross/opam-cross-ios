@@ -1,0 +1,18 @@
+--- a/rng/unix/mc_getrandom_stubs.c
++++ b/rng/unix/mc_getrandom_stubs.c
+@@ -9,8 +9,13 @@
+ #include <caml/unixsupport.h>
+ #include <caml/bigarray.h>
+ 
+-#if defined(__ANDROID_API__) && __ANDROID_API__ < 28
+-// on Android 27 and earlier, we use Google's <sys/random.h> recommended arc4random_buf
++#if defined(__APPLE__)
++# include <TargetConditionals.h>
++#endif
++
++#if (defined(__ANDROID_API__) && __ANDROID_API__ < 28) || (defined(__APPLE__) && TARGET_OS_IPHONE)
++// on Android 27 and earlier, we use Google's <sys/random.h> recommended arc4random_buf;
++// on iOS getentropy is not public API, and arc4random_buf is the system CSPRNG
+ # include <stdlib.h>
+ 
+ void raw_getrandom (uint8_t *data, size_t len) {
