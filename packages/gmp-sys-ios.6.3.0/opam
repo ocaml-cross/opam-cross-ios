@@ -1,0 +1,25 @@
+opam-version: "2.0"
+maintainer: "Boris D. <borisd@gmx.com>"
+substs: ["gmp-sys-ios.config"]
+build: [
+  ["./configure" "--host=%{conf-ios:triplereal}%"
+                 "--prefix=%{prefix}%/ios-deps/gmp"
+                 "--disable-shared"
+                 "--with-pic"
+                 "CPPFLAGS=%{conf-ios:cflags}%"
+                 "CFLAGS=%{conf-ios:cflags}%"
+                 "LDFLAGS=%{conf-ios:ldflags}%"
+                 "CC=" "CXX="]
+  ["make" "-j" jobs]
+]
+install: [
+  ["make" "install"]
+]
+remove:  ["rm" "-rf" "%{prefix}%/ios-deps/gmp"]
+depends: ["conf-ios"]
+url {
+  src: "https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz"
+  mirrors: ["https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz"]
+  checksum: "sha256=a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+}
+extra-files: ["gmp-sys-ios.config.in" "md5=0a30389e87401752dd4d4c4af82bb92d"]

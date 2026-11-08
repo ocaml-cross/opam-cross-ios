@@ -1,0 +1,2 @@
+cflags:    "-I%{prefix}%/ios-deps/gmp/include"
+ldflags:   "-L%{prefix}%/ios-deps/gmp/lib"
