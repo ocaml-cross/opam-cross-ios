@@ -1,0 +1,21 @@
+opam-version: "2.0"
+synopsis: "Task scheduler for OCaml 5 domains (iOS cross-compilation)"
+maintainer: "romain.beauxis@gmail.com"
+authors: "The Savonet Team <contact@liquidsoap.info>"
+license: "GPL-2.0-or-later"
+homepage: "https://github.com/savonet/liquidsoap"
+bug-reports: "https://github.com/savonet/liquidsoap/issues"
+depends: [
+  "ocaml-ios"
+  "dune" {>= "3.23"}
+  "re-ios" {>= "1.11.0"}
+]
+build: [
+  ["dune" "build" "-p" "duppy" "-x" "ios" "-j" jobs "@install"]
+  ["rm" "duppy.install"]
+]
+install: ["dune" "install" "-x" "ios" "-p" "duppy"]
+dev-repo: "git+https://github.com/savonet/liquidsoap.git"
+url {
+  src: "git+https://github.com/savonet/liquidsoap.git#1b4268f0b67a51c8b6bac59cc5b90aaf9156a7a6"
+}
