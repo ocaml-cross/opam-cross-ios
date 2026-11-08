@@ -1,0 +1,32 @@
+--- a/lib/mem_usage.c
++++ b/lib/mem_usage.c
+@@ -81,7 +81,6 @@
+ #include <mach/mach_host.h>
+ #include <mach/mach_init.h>
+ #include <mach/mach_types.h>
+-#include <mach/mach_vm.h>
+ #include <mach/vm_statistics.h>
+ #include <stdio.h>
+ #include <sys/mount.h>
+@@ -90,8 +89,8 @@
+ 
+ void private_pages(unsigned int *pages_resident,
+                    unsigned int *pages_swapped_out) {
+-  mach_vm_address_t address = 0;
+-  mach_vm_size_t size = 0;
++  vm_address_t address = 0;
++  vm_size_t size = 0;
+   uint32_t depth;
+   vm_region_submap_info_data_64_t info;
+   mach_msg_type_number_t count;
+@@ -102,8 +101,8 @@
+   while (1) {
+     depth = 2048;
+     count = VM_REGION_SUBMAP_INFO_COUNT_64;
+-    kr = mach_vm_region_recurse(mach_task_self(), &address, &size, &depth,
+-                                (vm_region_recurse_info_t)&info, &count);
++    kr = vm_region_recurse_64(mach_task_self(), &address, &size, &depth,
++                              (vm_region_recurse_info_t)&info, &count);
+ 
+     if (kr != KERN_SUCCESS)
+       break;
